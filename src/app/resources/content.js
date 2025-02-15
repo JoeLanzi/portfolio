@@ -91,18 +91,22 @@ const about = {
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "Guild Mortgage",
+        timeframe: "2025 - Present",
+        role: "AI Engineer",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Architected and deployed GuildIQ, a cutting-edge multi-agent system that revolutionized how employees access and utilize internal and external knowledge bases across sales, loan processing, and product information.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Led full-stack optimization of the RAG pipeline, significantly improving document processing speed and reducing operational overhead through efficient resource utilization.
           </>,
+          <>
+            Engineered a sophisticated multi-agent orchestration system that streamlined complex queries and minimized the need for manual intervention in knowledge retrieval.
+          </>,
+          <>
+            Implemented advanced caching and optimization strategies that dramatically improved response times while maintaining high accuracy across diverse financial queries.
+          </>
         ],
         images: [
           // optional: leave the array empty if you don't want to display images
