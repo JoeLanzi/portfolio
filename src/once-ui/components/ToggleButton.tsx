@@ -31,6 +31,8 @@ interface CommonProps {
   style?: React.CSSProperties;
   children?: ReactNode;
   href?: string;
+  width?: string;
+  align?: string;
 }
 
 export type ToggleButtonProps = CommonProps & React.ButtonHTMLAttributes<HTMLButtonElement>;

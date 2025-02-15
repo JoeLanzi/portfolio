@@ -21,7 +21,11 @@ interface ComponentProps
     StyleProps,
     CommonProps,
     DisplayProps,
-    ConditionalProps {}
+    ConditionalProps {
+      alignItems?: string;
+      justifyContent?: string;
+      alpha?: string;
+    }
 
 const Flex = forwardRef<HTMLDivElement, ComponentProps>(
   (
@@ -42,6 +46,9 @@ const Flex = forwardRef<HTMLDivElement, ComponentProps>(
       onBackground,
       onSolid,
       align,
+      alignItems,
+      justifyContent,
+      alpha,
       top,
       right,
       bottom,
@@ -180,6 +187,9 @@ const Flex = forwardRef<HTMLDivElement, ComponentProps>(
       marginBottom && `mb-${marginBottom}`,
       marginX && `mx-${marginX}`,
       marginY && `my-${marginY}`,
+      alignItems && `align-items-${alignItems}`,
+      justifyContent && `justify-content-${justifyContent}`,
+      alpha && `alpha-${alpha}`,
       gap === "-1"
         ? direction === "column" || direction === "column-reverse"
           ? "g-vertical--1"

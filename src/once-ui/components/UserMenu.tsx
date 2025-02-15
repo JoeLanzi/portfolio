@@ -6,6 +6,11 @@ import { Flex, DropdownWrapper, User, UserProps } from ".";
 import styles from "./UserMenu.module.scss";
 import { DropdownWrapperProps } from "./DropdownWrapper";
 
+interface DropdownOption {
+  label: string;
+  value: string;
+}
+
 interface UserMenuProps
   extends UserProps,
     Pick<DropdownWrapperProps, "minHeight" | "minWidth" | "maxWidth"> {
@@ -13,6 +18,7 @@ interface UserMenuProps
   dropdown?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  dropdownOptions?: DropdownOption[];
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
@@ -23,6 +29,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
   minHeight,
   className,
   style,
+  dropdownOptions = [],
   ...userProps
 }) => {
   return (

@@ -11,7 +11,7 @@ const Sidebar: React.FC = ({
         <Flex
             data-theme="dark"
             maxWidth={16} fillWidth fillHeight paddingX="16" paddingY="32" gap="m"
-            background="page" border="neutral-weak" borderStyle="solid-1" radius="l"
+            background="page" border="neutral-weak" borderStyle="solid" radius="l"
             justifyContent="flex-start" alignItems="flex-start" direction="column">
             <Flex
                 fillHeight fillWidth paddingX="xs" gap="m"

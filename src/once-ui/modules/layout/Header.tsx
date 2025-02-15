@@ -157,7 +157,7 @@ const Header: React.FC<HeaderProps> = ({
                 </Flex>
             )}
         </Flex>
-    );
+  );
 };
 
 Header.displayName = 'Header';
