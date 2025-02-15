@@ -87,7 +87,7 @@ const about = {
     description: (
       <>
         Developer with 5+ years leading AI & ML projects in industry and research, specializing in generative AI 
-        for internal tools, cybersecurity, healthcare, finance, transportation, and geospatial applications. Skilled in end-to-end 
+        for full stack applications, cybersecurity, healthcare, finance, transportation, and geospatial applications. Skilled in end-to-end 
         system design for scalable solutions on cloud and edge platforms.
       </>
     ),
