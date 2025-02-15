@@ -134,7 +134,7 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(({
                     style={{ aspectRatio: aspectRatio }}
                     fillWidth
                     justifyContent="center" alignItems="center"
-                    border="neutral-medium" borderStyle="solid-1" radius="l"
+                    border="neutral-medium" borderStyle="solid" radius="l"
                     onClick={handleFileSelection}>
                     { !loading && (
                         <>
