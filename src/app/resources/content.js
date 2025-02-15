@@ -1,15 +1,15 @@
 import { InlineCode } from "@/once-ui/components";
 
 const person = {
-  firstName: "Selene",
-  lastName: "Yu",
+  firstName: "Joe",
+  lastName: "Lanzi",
   get name() {
     return `${this.firstName} ${this.lastName}`;
   },
-  role: "Design Engineer",
+  role: "AI Engineer · Data Scientist · Investor",
   avatar: "/images/avatar.jpg",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  location: "America/Chicago", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  languages: [],
 };
 
 const newsletter = {
@@ -29,34 +29,33 @@ const social = [
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system/nextjs-starter",
+    link: "https://github.com/JoeLanzi/portfolio",
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    link: "https://www.linkedin.com/in/lanzij/",
   },
   {
-    name: "X",
-    icon: "x",
-    link: "",
+    name: "Publications",
+    icon: "book",
+    link: "https://scholar.google.com/citations?hl=en&user=FJEG83UAAAAJ",
   },
   {
     name: "Email",
     icon: "email",
-    link: "mailto:example@gmail.com",
+    link: "mailto:joelanzi@ymail",
   },
 ];
 
 const home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Design engineer and builder</>,
+  description: `Portfolio website showcasing my work`,
+  headline: <>AI Engineer · Consultant · Investor</>,
   subline: (
     <>
-      I'm Selene, a design engineer at <InlineCode>FLY</InlineCode>, where I craft intuitive
-      <br /> user experiences. After hours, I build my own projects.
+      "Hey I'm <InlineCode>Joe</InlineCode>, an AI engineer specializing in cutting-edge AI solutions, building the future of AI."
     </>
   ),
 };
@@ -81,9 +80,9 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        Developer with 5+ years leading AI/ML projects in industry and research, specializing in generative AI, 
+        cybersecurity, healthcare, finance, transportation, and geospatial applications. Skilled in end-to-end 
+        system design for scalable solutions on cloud and edge platforms.
       </>
     ),
   },
