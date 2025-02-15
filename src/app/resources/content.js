@@ -1,4 +1,5 @@
 import { InlineCode } from "@/once-ui/components";
+import { HiArrowRight } from "react-icons/hi2";
 
 const person = {
   firstName: "Joe",
@@ -46,6 +47,11 @@ const social = [
     icon: "email",
     link: "mailto:joelanzi@ymail",
   },
+  {
+    name: "Scheadule a call",
+    icon: "calendar",
+    link: "https://cal.com/joelanzi",
+  },
 ];
 
 const home = {
@@ -55,7 +61,7 @@ const home = {
   headline: <>AI Engineer · Consultant · Investor</>,
   subline: (
     <>
-      "Hey I'm <InlineCode>Joe</InlineCode>, an AI engineer specializing in cutting-edge AI solutions, building the future of AI."
+      "Hey I'm <InlineCode>Joe</InlineCode>, a developer specializing in cutting-edge solutions, building the future of AI."
     </>
   ),
 };
@@ -72,65 +78,97 @@ const about = {
     display: true,
   },
   calendar: {
-    display: true,
-    link: "https://cal.com",
+    display: false,
+    link: "https://cal.com/joelanzi",
   },
   intro: {
     display: true,
     title: "Introduction",
     description: (
       <>
-        Developer with 5+ years leading AI/ML projects in industry and research, specializing in generative AI, 
-        cybersecurity, healthcare, finance, transportation, and geospatial applications. Skilled in end-to-end 
+        Developer with 5+ years leading AI & ML projects in industry and research, specializing in generative AI 
+        for internal tools, cybersecurity, healthcare, finance, transportation, and geospatial applications. Skilled in end-to-end 
         system design for scalable solutions on cloud and edge platforms.
       </>
     ),
   },
   work: {
-    display: true, // set to false to hide this section
+    display: true,
     title: "Work Experience",
     experiences: [
       {
         company: "Guild Mortgage",
-        timeframe: "2025 - Present",
+        timeframe: "Jan 2025 - Present",
         role: "AI Engineer",
         achievements: [
-          <>
-            Architected and deployed GuildIQ, a cutting-edge multi-agent system that revolutionized how employees access and utilize internal and external knowledge bases across sales, loan processing, and product information.
-          </>,
-          <>
-            Led full-stack optimization of the RAG pipeline, significantly improving document processing speed and reducing operational overhead through efficient resource utilization.
-          </>,
-          <>
-            Engineered a sophisticated multi-agent orchestration system that streamlined complex queries and minimized the need for manual intervention in knowledge retrieval.
-          </>,
-          <>
-            Implemented advanced caching and optimization strategies that dramatically improved response times while maintaining high accuracy across diverse financial queries.
-          </>
+          <>As one of the technical architects behind GuildIQ, I helped revolutionize knowledge access across Guild Mortgage by implementing a multi-agent retrieval-augmented 
+          generation (RAG) framework that fundamentally changed how teams interact with critical information. Through full-stack optimization strategies of the RAG pipeline, 
+          I significantly improved document processing speed, response time, and reduced operational overhead through efficient resource utilization.</>
         ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "GovernmentGPT",
+        timeframe: "Jan 2024 - Dec 2024",
+        role: "Lead AI Engineer",
         achievements: [
-          <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
-          </>,
-          <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
-          </>,
+          <>I led the developedment of the core adaptive multi-modal system that set new standards for real-time environmental awareness in high-stakes operations. 
+          I drove the designing and deployment of optimized AI models across cloud and edge environments enabling unprecedented accuracy in threat detection and classification. 
+          The implementation of fine-tuned LLMs for specialized applications, coupled with development of high-performance auditory transcription systems, 
+          delivered a 10x improvement in processing speed compared to existing solutions at the time. This end-to-end AI pipeline architecture created a seamless bridge between 
+          cloud capabilities and edge platforms, establishing new benchmarks for AI performance in real-time mission-critical scenarios.</>
+        ],
+        images: [],
+      },
+      {
+        company: "Object Computing, Inc.",
+        timeframe: "Aug 2022 - Dec 2023",
+        role: "AI Data Scientist",
+        achievements: [
+          <>I wore multiple hats at OCI as a data scientist consultant like serving as lead architect for advanced geospatial ML solutions where I established new standards 
+          in environmental analysis through collaboration with Google and Planet Data Labs. I also developed of sophisticated AI systems for crop prediction and natural disaster 
+          analysis accelerating response times while reducing manual intervention. I was also responsible for deployment of production-grade ML systems such as malware 
+          categorization and implementation of fraud detection models for the healthcare industry.
+          These initiatives showcased the practical application of AI in solving complex operational challenges.</>
+        ],
+        images: [],
+      },
+      {
+        company: "Saint Louis University",
+        timeframe: "Aug 2021 - Dec 2022",
+        role: "Research Assistant / Deep Learning Programmer",
+        achievements: [
+          <>Through my role in advancing visual categorization systems, I directly enhanced the capabilities of human trafficking investigations at the National Center for Missing and Exploited Children. My parallel development of a sophisticated reinforcement learning model for virtual economic simulation demonstrated the versatility of AI applications in both practical and theoretical domains. The success of these initiatives showcased how targeted AI solutions can simultaneously address critical social issues while advancing our understanding of complex systemic behaviors.</>
+        ],
+        images: [],
+      },
+      {
+        company: "The New York Stem Cell Foundation Research Institute",
+        timeframe: "Jun 2020 - May 2021",
+        role: "Machine Learning Engineer",
+        achievements: [
+          <>By developing a sophisticated CNN architecture for cell segmentation, I enabled unprecedented accuracy in analyzing both nuclear and non-nuclear stains. My implementation of deep learning object detection algorithms created new possibilities for identifying specific biological characteristics in nuclei, while my innovative approach to 3D tumor cell classification and growth forecasting provided researchers with essential tools for understanding cancer progression. These developments directly contributed to advancing the foundation's research capabilities in stem cell analysis and cancer research.</>
+        ],
+        images: [],
+      },
+      {
+        company: "Manhattan College",
+        timeframe: "Jan 2019 - May 2020",
+        role: "Research Assistant / Deep Learning Programmer",
+        achievements: [
+          <>Through my work with neuromorphic vision sensors, I pioneered bio-inspired vision systems that achieved breakthrough performance in classification and tracking. My development of deep learning techniques for motion-based target discrimination, combined with efficient scene analysis strategies, established new standards for computer vision under resource constraints. The culmination of this work - a partial facial recognition system achieving 99% accuracy for individuals with facial coverings - demonstrated the practical impact of my research in addressing real-world security challenges.</>
+        ],
+        images: [],
+      },
+      {
+        company: "United States Marine Corps",
+        timeframe: "Jun 2013 - Jun 2018",
+        role: "Intelligence Support / Instructor",
+        achievements: [
+          <>As a key instructor and intelligence support specialist, I elevated the Marine Corps' operational capabilities through comprehensive 
+          training programs reaching over 20,000 personnel. My development of organizational-level lesson plans and delivery of more than 400 hours of 
+          specialized instruction strengthened the Corps' framework. There, my main responsibility was to analyze real time operational elements 
+          and provided strategic briefs to support future operations.</>
         ],
         images: [],
       },
