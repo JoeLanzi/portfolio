@@ -94,7 +94,7 @@ const about = {
   },
   work: {
     display: true,
-    title: "Work Experience",
+    title: "Experience",
     experiences: [
       {
         company: "Guild Mortgage",
@@ -187,20 +187,20 @@ const about = {
   },
   studies: {
     display: true, // set to false to hide this section
-    title: "Studies",
+    title: "Education",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "Saint Louis University | St. Louis, MO",
+        description: <>MS in Artificial Intelligence</>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "Manhattan College | New York, NY",
+        description: <>BS in Computer Engineering</>,
       },
     ],
   },
   technical: {
-    display: true, // set to false to hide this section
+    display: false, // set to false to hide this section
     title: "Technical skills",
     skills: [
       {
