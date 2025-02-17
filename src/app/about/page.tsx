@@ -91,18 +91,7 @@ export default function About() {
           }),
         }}
       />
-      {about.tableOfContent.display && (
-        <Column
-          left="0"
-          style={{ top: "50%", transform: "translateY(-50%)" }}
-          position="fixed"
-          paddingLeft="24"
-          gap="32"
-          hide="s"
-        >
-          <TableOfContents structure={structure} about={about} />
-        </Column>
-      )}
+      
       <Flex fillWidth mobileDirection="column" horizontal="center">
         {about.avatar.display && (
           <Column
@@ -119,6 +108,7 @@ export default function About() {
               <Icon onBackground="accent-weak" name="globe" />
               {person.location}
             </Flex>
+            <TableOfContents structure={structure} about={about} />
             {person.languages.length > 0 && (
               <Flex wrap gap="8">
                 {person.languages.map((language, index) => (
@@ -218,9 +208,17 @@ export default function About() {
                 {about.work.experiences.map((experience, index) => (
                   <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
                     <Flex fillWidth horizontal="space-between" vertical="end" marginBottom="4">
-                      <Text id={experience.company} variant="heading-strong-l">
-                        {experience.company}
-                      </Text>
+                    <Text
+                      as="a"
+                      href={experience.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      id={experience.company}
+                      variant="heading-strong-l"
+                      style={{ color: "inherit", textDecoration: "none" }}
+                    >
+                      {experience.company}
+                    </Text>
                       <Text variant="heading-default-xs" onBackground="neutral-weak">
                         {experience.timeframe}
                       </Text>

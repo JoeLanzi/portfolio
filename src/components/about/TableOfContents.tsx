@@ -72,16 +72,14 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({ structure, about }) =
 
   return (
     <Column
-      left="0"
       style={{
-        top: "50%",
-        transform: "translateY(-50%)",
         whiteSpace: "nowrap",
+        transform: "translateY(30%)",
+        top: "50%",
       }}
-      position="fixed"
-      paddingLeft="24"
-      gap="32"
-      hide="m"
+      paddingLeft="0"
+      gap="24"
+      hide="s"
     >
       {structure
         .filter((section) => section.display)

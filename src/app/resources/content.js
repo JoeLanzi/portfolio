@@ -99,6 +99,7 @@ const about = {
     experiences: [
       {
         company: "Guild Mortgage",
+        link: "https://www.guildmortgage.com/about-us/news/press-release/guild-mortgage-launches-custom-ai-system-streamlining-tasks-and-improving-efficiency/",
         timeframe: "Jan 2025 - Present",
         role: "AI Engineer",
         achievements: [
@@ -114,6 +115,7 @@ const about = {
       },
       {
         company: "GovernmentGPT",
+        link: "https://techcrunch.com/2024/04/04/meet-the-startup-pitch-finalists-at-tc-early-stage-2024-chargebay-govgpt-ti%C2%A2ker/",
         timeframe: "Jan 2024 - Dec 2024",
         role: "Lead AI Engineer",
         achievements: [
@@ -129,6 +131,7 @@ const about = {
       },
       {
         company: "Object Computing, Inc.",
+        link: "https://objectcomputing.com/client-outcomes/revolutionizing-disaster-response-with-ai",
         timeframe: "Aug 2022 - Dec 2023",
         role: "AI Data Scientist",
         achievements: [
@@ -144,6 +147,7 @@ const about = {
       },
       {
         company: "Saint Louis University",
+        link: "https://www.trails.umd.edu/news/app-developed-by-a-saint-louis-university-researcher-helps-stop-human-trafficking",
         timeframe: "Aug 2021 - Dec 2022",
         role: "Research Assistant / Deep Learning Programmer",
         achievements: [
@@ -156,6 +160,7 @@ const about = {
       },
       {
         company: "NYSCF",
+        link: "https://nyscf.org/research-institute/research-capabilities/",
         timeframe: "Jun 2020 - May 2021",
         role: "Machine Learning Engineer",
         achievements: [
