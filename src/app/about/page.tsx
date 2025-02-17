@@ -239,6 +239,15 @@ export default function About() {
                         </Text>
                       ))}
                     </Column>
+                    {experience.tags && experience.tags.length > 0 && (
+                      <Flex wrap gap="8" marginTop="m">
+                        {experience.tags.map((tag, index) => (
+                          <Tag key={index} size="m" variant="neutral">
+                            {tag}
+                          </Tag>
+                        ))}
+                      </Flex>
+                    )}
                     {experience.images.length > 0 && (
                       <Flex fillWidth paddingTop="m" paddingLeft="40" wrap>
                         {experience.images.map((image, index) => (

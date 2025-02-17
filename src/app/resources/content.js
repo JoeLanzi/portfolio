@@ -109,6 +109,7 @@ const about = {
           through efficient resource management. This innovative approach reshaped internal workflows and set a new 
           benchmark for leveraging AI in operational environments.</>
         ],
+        tags: ["Large Language Models (LLM)", "Generative AI", "Retrieval-Augmented Generation (RAG)", "Real-time Multiagent Framework", "Python", "Javascript", "MS Azure", "System Design"],
         images: [],
       },
       {
@@ -123,6 +124,7 @@ const about = {
           in a tenfold increase in processing speeds, establishing a robust, mission-critical AI pipeline that 
           seamlessly bridges cloud capabilities with on-ground operations.</>
         ],
+        tags: ["Large Language Models (LLM)", "Generative AI", "Retrieval-Augmented Generation (RAG)", "Real-time Multiagent Framework", "Python", "C++", "Javascript", "Amazon Web Services(AWS)", "Nvidia Jetson", "MLOps", "System Design"],
         images: [],
       },
       {
@@ -137,6 +139,7 @@ const about = {
           categorization and fraud detection in healthcare, demonstrating the significant impact of data-driven 
           solutions on complex, real-world challenges.</>
         ],
+        tags: ["Python", "Geographic Information System (GIS)", "Machine Learning", "Data Analysis", "Google Earth Engine", "Google Cloud Platform (GCP)", "Amazon Web Servies (AWS)", "MS Azure", "MLOps", "System Design"],
         images: [],
       },
       {
@@ -148,6 +151,7 @@ const about = {
           investigations, and developed a reinforcement learning model that simulated virtual economies—delivering 
           fresh insights into adaptive behaviors that drive real-world impact.</>
         ],
+        tags: ["Deep Learning", "Reinforcement Learning", "Computer Vision", "Neural Networks"],
         images: [],
       },
       {
@@ -159,6 +163,7 @@ const about = {
           designing object detection methods to capture key biological markers. My work in 3D tumor cell classification 
           sharpened our ability to predict cancer progression with greater accuracy.</>
         ],
+        tags: ["Deep Learning", "Image Segmentation", "Object Detection", "Medical Imaging"],
         images: [],
       },
       {
@@ -170,6 +175,7 @@ const about = {
           conditions. By improving contrast sensitivity and developing deep learning strategies for rapid scene analysis, 
           I built a facial recognition solution that achieved 99% accuracy even under conditions with facial coverings.</>
         ],
+        tags: ["Deep Learning", "Computer Vision", "Neuromorphic Vision", "Image Processing"],
         images: [],
       },
       {
@@ -182,6 +188,7 @@ const about = {
           intelligence support specialist, I analyzed real-time operational elements and provided strategic briefs to 
           shape future decisions.</>
         ],
+        tags: ["Real-time Analytics", "Intelligence Analysis", "Operational Leadership", "System Design", "Technical Instruction", "Cybersecurity"],
         images: [],
       },
     ],
