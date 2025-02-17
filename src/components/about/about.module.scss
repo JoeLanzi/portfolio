@@ -1,27 +1,32 @@
 .hover {
     transition: var(--transition-micro-medium);
-
-    &:hover {
-        transform: translateX(var(--static-space-4));
+  
+    &:hover,
+    &.active {
+      transform: translateX(var(--static-space-4));
+      //border-left: 4px solid #007ACC; // accent border
+      //background-color: rgba(0, 122, 204, 0.1); // subtle highlight
+      font-weight: bold; // make the text stand out
+      padding-left: calc(var(--static-space-4) + 5px); // adjust for border spacing
     }
-}
-
-.avatar {
+  }
+  
+  .avatar {
     position: sticky;
     height: fit-content;
     top: var(--static-space-64);
-}
-
-@media (--s) {
+  }
+  
+  @media (--s) {
     .avatar {
-        top: auto;
+      top: auto;
     }
-
+  
     .textAlign {
-        text-align: center;
+      text-align: center;
     }
-
+  
     .blockAlign {
-        align-self: center;
+      align-self: center;
     }
-}
+  }
