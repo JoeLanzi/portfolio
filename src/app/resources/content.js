@@ -38,11 +38,6 @@ const social = [
     link: "https://www.linkedin.com/in/lanzij/",
   },
   {
-    name: "Publications",
-    icon: "book",
-    link: "https://scholar.google.com/citations?hl=en&user=FJEG83UAAAAJ",
-  },
-  {
     name: "Email",
     icon: "email",
     link: "mailto:joelanzi@ymail",
@@ -51,6 +46,11 @@ const social = [
     name: "Scheadule a call",
     icon: "calendar",
     link: "https://cal.com/joelanzi",
+  },
+  {
+    name: "Resume",
+    icon: "file",
+    link: "/resume/Lanzi Resume.pdf",
   },
 ];
 
