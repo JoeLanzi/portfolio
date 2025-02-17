@@ -101,7 +101,7 @@ export default function About() {
             paddingBottom="xl"
             gap="m"
             flex={3}
-            horizontal="center"
+            horizontal="start"
           >
             <Avatar src={person.avatar} size="xl" />
             <Flex gap="8" vertical="center">
