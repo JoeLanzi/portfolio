@@ -61,7 +61,8 @@ const home = {
   headline: <>AI Engineer · Data Scientist · Investor</>,
   subline: (
     <>
-      "Hey I'm <InlineCode>Joe</InlineCode>, a developer specializing in cutting-edge solutions, building the future of AI."
+      "Hey I'm <InlineCode>Joe</InlineCode>, an AI innovator dedicated to transforming complex challenges into 
+      breakthrough solutions, designing intelligent systems that create tangible impact across industries"
     </>
   ),
 };
@@ -86,7 +87,7 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        Developer with 5+ years leading AI & ML projects in industry and research, specializing in generative AI 
+        I'm a developer with 5+ years leading AI & ML projects in industry and research, specializing in generative AI 
         for full stack applications, cybersecurity, healthcare, finance, transportation, and geospatial applications. Skilled in end-to-end 
         system design for scalable solutions on cloud and edge platforms.
       </>
