@@ -17,7 +17,7 @@ const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
   (
     {
       children,
-      speed = "medium",
+      speed = "fast",
       interval = 2500,
       trigger = "instant",
       continuous = true,
