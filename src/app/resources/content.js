@@ -103,9 +103,9 @@ const about = {
         timeframe: "Jan 2025 - Present",
         role: "AI Engineer",
         achievements: [
-          <>As one of the key technical architects behind GuildIQ, I helped revolutionized knowledge access by developing 
+          <>As one of the key technical architects behind GuildIQ, I'm helping revolutionize knowledge access by developing 
           a multi-agent retrieval-augmented generation (RAG) framework that transformed how teams interact with 
-          critical information. I implemented comprehensive full-stack optimization strategies across the RAG pipeline, 
+          critical information. I've implemented comprehensive full-stack optimization strategies across the framework, 
           significantly boosting document processing speeds, reducing response times, and cutting operational overhead 
           through efficient resource management. This innovative approach reshaped internal workflows and set a new 
           benchmark for leveraging AI in operational environments.</>
