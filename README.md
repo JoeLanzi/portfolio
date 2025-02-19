@@ -6,7 +6,9 @@ View the [demo here](https://portfolio-joelanzis-projects.vercel.app/).
 
 # **Getting started**
 
-This portfolio was built with [Once UI](https://once-ui.com) for [Next.js](https://nextjs.org). It requires Node.js v18.17+. The original template can be found at [Once UI Github Page](https://github.com/once-ui-system/magic-portfolio.git).
+This portfolio was built with [Once UI](https://once-ui.com) for [Next.js](https://nextjs.org). It requires Node.js v18.17+. 
+
+The original template can be found at [Once UI Github Page](https://github.com/once-ui-system/magic-portfolio.git).
 
 
 Editing is easy by:
