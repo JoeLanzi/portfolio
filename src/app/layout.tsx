@@ -12,6 +12,8 @@ import { Source_Code_Pro } from "next/font/google";
 import { person, home } from "@/app/resources/content";
 import { Background, Column, Flex, ToastProvider } from "@/once-ui/components";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 export async function generateMetadata() {
   return {
     metadataBase: new URL(`https://${baseURL}`),
@@ -155,6 +157,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             </Flex>
           </Flex>
           <Footer />
+          <SpeedInsights />
         </Column>
       </ToastProvider>
     </Flex>
