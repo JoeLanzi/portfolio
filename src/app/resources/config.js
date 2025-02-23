@@ -1,4 +1,4 @@
-const baseURL = "portfolio-joelanzis-projects.vercel.app";
+const baseURL = "joelanzi.vercel.app";
 
 const routes = {
   "/": true,
