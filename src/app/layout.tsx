@@ -13,6 +13,7 @@ import { person, home } from "@/app/resources/content";
 import { Background, Column, Flex, ToastProvider } from "@/once-ui/components";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react"; 
 
 export async function generateMetadata() {
   return {
@@ -158,6 +159,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           </Flex>
           <Footer />
           <SpeedInsights />
+          <Analytics /> 
         </Column>
       </ToastProvider>
     </Flex>
