@@ -65,6 +65,7 @@ const effects = {
 const display = {
   location: true,
   time: true,
+  chatPopup: true,
 };
 
 const mailchimp = {

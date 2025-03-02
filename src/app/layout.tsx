@@ -3,8 +3,8 @@ import "@/once-ui/tokens/index.scss";
 
 import classNames from "classnames";
 
-import { Footer, Header, RouteGuard } from "@/components";
-import { baseURL, effects, style } from "@/app/resources";
+import { Footer, Header, RouteGuard, PopChat } from "@/components";
+import { baseURL, effects, style, display} from "@/app/resources";
 
 import { Inter } from "next/font/google";
 import { Source_Code_Pro } from "next/font/google";
@@ -53,8 +53,8 @@ type FontConfig = {
 };
 
 /*
-	Replace with code for secondary and tertiary fonts
-	from https://once-ui.com/customize
+    Replace with code for secondary and tertiary fonts
+    from https://once-ui.com/customize
 */
 const secondary: FontConfig | undefined = undefined;
 const tertiary: FontConfig | undefined = undefined;
@@ -159,7 +159,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           </Flex>
           <Footer />
           <SpeedInsights />
-          <Analytics /> 
+          <Analytics />
+          {display.chatPopup && <PopChat />} 
         </Column>
       </ToastProvider>
     </Flex>
