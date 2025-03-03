@@ -11,3 +11,11 @@
     height: 50px;
     border-radius: 50%;
 }
+
+@media (--s) {
+    .chatCon {
+        top: 3.5%;
+        bottom: auto;
+        right: 3.5%;
+    }
+}
