@@ -2,20 +2,21 @@
 
 import React from "react";
 import styles from "./ChatPopup.module.scss";
-import chatIcon from '../components/resources/chat.png';
-import Image from 'next/image';
+import { ToggleButton } from "@/once-ui/components";
+import { usePathname } from "next/navigation";
 
 export const PopChat: React.FC = () => {
+  const pathname = usePathname() ?? "";
+
   const handleClick = () => {
     console.log("Chat icon clicked");
   };
 
   return (
     <div className={styles.chatCon} onClick={handleClick} title="AI Chat Coming Soon">
-      <Image
-        src={chatIcon}
-        alt="Chat Icon"
-        className={styles.chatIcon}
+      <ToggleButton
+        prefixIcon="chat"
+        selected={pathname === "/chat"}
       />
     </div>
   );

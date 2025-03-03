@@ -1,4 +1,5 @@
 import { IconType } from "react-icons";
+import { BsChatRightDots } from "react-icons/bs";
 
 import {
   HiChevronUp,
@@ -68,5 +69,6 @@ export const iconLibrary: Record<string, IconType> = {
   clipboard: HiClipboard,
   arrowUpRightFromSquare: HiArrowTopRightOnSquare,
   google: FaGoogle,
-  file: FaFileLines
+  file: FaFileLines,
+  chat: BsChatRightDots,
 };
