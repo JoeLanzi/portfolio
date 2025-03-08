@@ -1,21 +1,114 @@
 .chatCon {
-    position: fixed;
-    bottom: 4%;
-    right: 3%;
-    z-index: 1000;
-    cursor: pointer;
+  position: fixed;
+  bottom: 4%;
+  right: 3%;
+  z-index: 1000;
+  cursor: pointer;
 }
 
 .chatIcon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
-@media (--s) {
-    .chatCon {
-        top: 3.5%;
-        bottom: auto;
-        right: 3.5%;
-    }
+.chatPanel {
+  position: fixed;
+  top: 35px;
+  right: 16px;
+  bottom: 45px;
+  height: calc(100vh - 80px);
+  width: calc(100% - 32px);
+  max-width: 380px; /* Maximum width for the chat panel */
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  background: linear-gradient(to bottom, var(--page-background), var(--static-transparent));
+  backdrop-filter: blur(0.9rem);
+  color: #f1f1f1; /* Light text color */
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.25);
+  z-index: 1001;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+}
+
+.chatPanel.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.closeButtonContainer {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1002;
+}
+
+.closeButton {
+  color: #f1f1f1;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.header {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+}
+
+.chatContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  margin-bottom: 80px; /* Increase margin to prevent content from touching the input */
+}
+
+.inputContainer {
+  padding: 16px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: transparent; /* Ensure the input container has a transparent background */
+}
+
+.userMessage {
+  align-self: flex-end;
+  background-color: #0078d4;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  max-width: 70%;
+}
+
+.replyMessage {
+  align-self: flex-start;
+  background-color: #333;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  max-width: 70%;
+}
+
+@media (max-width: 768px) {
+  .chatCon {
+    top: 3.5%;
+    bottom: auto;
+    right: 3.5%;
+  }
+
+  .chatPanel {
+    top: 16px;
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    height: calc(100vh - 32px);
+    width: calc(100% - 32px);
+    max-width: none; /* Remove the maximum width for mobile view */
+  }
 }
