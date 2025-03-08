@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatPopup.module.scss";
 import { IconButton, Flex, Input, Heading, Text } from "@/once-ui/components";
 import { usePathname } from "next/navigation";
@@ -12,6 +12,15 @@ export const PopChat: React.FC = () => {
   const [messages, setMessages] = useState([
     { type: "reply", text: "AI Chat is not available at this time but it is coming soon!" },
   ]);
+  const [aiReplyCount, setAiReplyCount] = useState(0);
+
+  const chatContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatContentRef.current) {
+      chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleClick = () => {
     console.log("Chat icon clicked");
@@ -28,14 +37,35 @@ export const PopChat: React.FC = () => {
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      setMessages([...messages, { type: "user", text: message }]);
+      // Append user's message
+      setMessages((prev) => [...prev, { type: "user", text: message }]);
       setMessage("");
 
-      // Simulate AI reply
+      // Simulate AI reply after a 1s delay
       setTimeout(() => {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { type: "reply", text: "AI Chat is not available at this time but it is coming soon!" },
+        const newCount = aiReplyCount + 1;
+        setAiReplyCount(newCount);
+
+        let replyText = "";
+        if (newCount === 1) {
+          replyText = "The AI Chat will be coming soon...";
+        } else if (newCount === 2) {
+          replyText = "Hey! I'm still working on this.. Come back later...";
+        } else if (newCount === 3 || newCount === 4) {
+          replyText = "...";
+        } else if (newCount === 5) {
+          replyText = "So you think you're funny huh!? But really the AI Chat feature will be coming soon! Please wait!";
+        } else if (newCount >= 6 && newCount < 10) {
+          replyText = "...";
+        } else if (newCount === 10) {
+          replyText = "OK OK! Email me so you can work on this since you really want this feature!";
+        } else {
+          replyText = "...";
+        }
+
+        setMessages((prev) => [
+          ...prev,
+          { type: "reply", text: replyText },
         ]);
       }, 1000);
     }
@@ -73,15 +103,15 @@ export const PopChat: React.FC = () => {
           <div className={styles.header}>
             <Heading variant="heading-strong-l">AI Chat</Heading>
           </div>
-          <div className={styles.chatContent}>
+          <div className={styles.chatContent} ref={chatContentRef}>
             {messages.map((msg, index) => (
-                <Flex key={index} style={{ justifyContent: msg.type === "user" ? "flex-end" : "flex-start" }} fillWidth>
+              <Flex key={index} style={{ justifyContent: msg.type === "user" ? "flex-end" : "flex-start" }} fillWidth>
                 <div className={msg.type === "user" ? styles.userMessage : styles.replyMessage}>
-                    <Text>{msg.text}</Text>
+                  <Text>{msg.text}</Text>
                 </div>
-                </Flex>
+              </Flex>
             ))}
-            </div>
+          </div>
           <div className={styles.inputContainer}>
             <Input
               id="chat-input"
