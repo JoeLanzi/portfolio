@@ -1,5 +1,6 @@
 import { IconType } from "react-icons";
 import { BsChatRightDots } from "react-icons/bs";
+import { AiOutlineSend } from "react-icons/ai";
 
 import {
   HiChevronUp,
@@ -71,4 +72,5 @@ export const iconLibrary: Record<string, IconType> = {
   google: FaGoogle,
   file: FaFileLines,
   chat: BsChatRightDots,
+  send: AiOutlineSend,
 };

@@ -114,18 +114,27 @@ export const PopChat: React.FC = () => {
           </div>
           <div className={styles.inputContainer}>
             <Input
-              id="chat-input"
-              label="Type a message"
-              value={message}
-              onChange={handleInputChange}
-              onKeyDown={(e) => {
+                id="chat-input"
+                label="Type a message"
+                value={message}
+                onChange={handleInputChange}
+                onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSendMessage();
+                    e.preventDefault();
+                    handleSendMessage();
                 }
-              }}
+                }}
+                hasSuffix={
+                <IconButton
+                    onClick={handleSendMessage}
+                    variant="ghost"
+                    size="s"
+                    icon="send"
+                >
+                </IconButton>
+                }
             />
-          </div>
+            </div>
         </Flex>
       </div>
     </>
