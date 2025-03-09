@@ -9,7 +9,7 @@ let threadId = generateId();
 let sequenceId = 0;
 
 function generateId() {
-  return Math.random().toString(36).substring(2, 15);
+  return Math.random().toString(36).substring(2, 30);
 }
 
 export async function sendChatMessage(userMessage: string, file?: File): Promise<ChatReply> {
