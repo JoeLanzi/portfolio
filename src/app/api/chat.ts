@@ -1,5 +1,5 @@
 export interface ChatReply {
-  reply: string;
+  message: string;
 }
 
 const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT || "http://localhost:9000/api/chat";
@@ -39,6 +39,9 @@ export async function sendChatMessage(userMessage: string, file?: File): Promise
     throw new Error("Failed to send message");
   }
 
+  const jsonResponse = await response.json();
+  console.log("Response received from API:", jsonResponse);
+
   sequenceId++;
-  return response.json();
+  return jsonResponse;
 }

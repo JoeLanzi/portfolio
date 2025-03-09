@@ -42,9 +42,9 @@ export const PopChat: React.FC = () => {
       try {
         // Send message to the API and get the reply
         const reply = await sendChatMessage(message);
-        setMessages((prev) => [...prev, { type: "reply", text: reply.reply }]);
+        setMessages((prev) => [...prev, { type: "reply", text: reply.message }]);  // Update this line to use reply.message
       } catch (error) {
-        setMessages((prev) => [...prev, { type: "reply", text: "An error occured.." }]);
+        setMessages((prev) => [...prev, { type: "reply", text: "An error occurred.." }]);
       }
     }
   };
