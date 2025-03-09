@@ -35,22 +35,13 @@ export async function sendChatMessage(userMessage: string, file?: File): Promise
     body: formData,
   });
 
-  if (!response.body) {
-    throw new Error("No response body");
+  if (!response.ok) {
+    throw new Error("Failed to send message");
   }
 
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder("utf-8");
-  let result = "";
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    result += decoder.decode(value, { stream: true });
-  }
-
-  console.log("Response received from API:", result);
+  const jsonResponse = await response.json();
+  console.log("Response received from API:", jsonResponse);
 
   sequenceId++;
-  return { message: result };
+  return jsonResponse;
 }
