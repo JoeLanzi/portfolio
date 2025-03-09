@@ -2,8 +2,8 @@ export interface ChatReply {
   message: string;
 }
 
-const API_ENDPOINT = process.env.API_ENDPOINT || "http://localhost:9000/api/chat";
-const API_KEY = process.env.API_KEY || "test-api-key";
+const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT || "http://localhost:9000/api/chat";
+const API_KEY = process.env.NEXT_PUBLIC_API_KEY || "test-api-key";
 
 let threadId = generateId();
 let sequenceId = 0;
