@@ -9,7 +9,7 @@ export const PopChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([
-    { type: "reply", text: "You can ask any questions about my portfolio, projects, blogs, and my resume!" },
+    { type: "reply", text: "You can ask any questions about my portfolio, projects, blogs, and my resume! [Still in the work!]" },
   ]);
 
   const chatContentRef = useRef<HTMLDivElement>(null);
@@ -42,7 +42,7 @@ export const PopChat: React.FC = () => {
       try {
         // Send message to the API and get the reply
         const reply = await sendChatMessage(message);
-        setMessages((prev) => [...prev, { type: "reply", text: reply.message }]);  // Update this line to use reply.message
+        setMessages((prev) => [...prev, { type: "reply", text: reply.message }]);
       } catch (error) {
         setMessages((prev) => [...prev, { type: "reply", text: "An error occurred.." }]);
       }
