@@ -17,8 +17,13 @@ export async function POST(request: Request) {
     const events = await openai.responses.create({
       model: MODEL,
       input: messages,
-      tools: [{ type: "web_search_preview" }],
+      // tools: [{ type: "web_search_preview" }],
+      tools:[{
+        "type": "file_search",
+        "vector_store_ids": [process.env.VECTOR_STORE_ID!]
+      }],
       tool_choice: "auto",
+      store: false,
       stream: true,
       parallel_tool_calls: false,
     });

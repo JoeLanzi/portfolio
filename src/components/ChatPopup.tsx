@@ -215,7 +215,7 @@ export const PopChat: React.FC = () => {
             ))}
             {isSearching && (
               <div className={styles.searchingIndicator}>
-                <Text>Using Search Skill </Text>
+                <Text>Thinking</Text>
                 <div className={styles.searchingDot}></div>
                 <div className={styles.searchingDot}></div>
                 <div className={styles.searchingDot}></div>
