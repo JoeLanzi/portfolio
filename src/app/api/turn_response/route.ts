@@ -43,19 +43,30 @@ export async function POST(request: Request) {
       async start(controller) {
         try {
           for await (const event of events) {
-
             // Sending all events to the client
             const data = JSON.stringify({
               event: event.type,
               data: event,
             });
-            controller.enqueue(`data: ${data}\n\n`);
+            // Properly encode the data as bytes
+            controller.enqueue(new TextEncoder().encode(`data: ${data}\n\n`));
           }
+          
+          // Send a final event to signal completion
+          controller.enqueue(new TextEncoder().encode(`data: ${JSON.stringify({event: "done"})}\n\n`));
+          
           // End of stream
           controller.close();
         } catch (error) {
           console.error("Error in streaming loop:", error);
-          controller.error(error);
+          
+          // Send error to client before closing
+          const errorMsg = JSON.stringify({
+            event: "error", 
+            data: { message: error instanceof Error ? error.message : "Unknown streaming error" }
+          });
+          controller.enqueue(new TextEncoder().encode(`data: ${errorMsg}\n\n`));
+          controller.close();
         }
       },
     });
@@ -64,8 +75,9 @@ export async function POST(request: Request) {
     return new Response(stream, {
       headers: {
         "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        Connection: "keep-alive",
+        "Cache-Control": "no-cache, no-transform",
+        "Connection": "keep-alive",
+        "X-Accel-Buffering": "no" // Prevents proxies from buffering the response
       },
     });
   } catch (error) {
