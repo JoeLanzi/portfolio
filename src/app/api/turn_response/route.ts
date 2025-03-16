@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     const events = await openai.responses.create({
       model: MODEL,
       input: messages,
-      // tools: [{ type: "web_search_preview" }],
+      // tools: [{ type: "web_search_preview" }], // Place in tools if wanting to use web search feature in chat
       tools:[{
         "type": "file_search",
         "vector_store_ids": [process.env.VECTOR_STORE_ID!]
