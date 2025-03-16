@@ -50,7 +50,7 @@ const social = [
   {
     name: "Resume",
     icon: "file",
-    link: "/resume/Lanzi Resume.pdf",
+    link: "/resume.pdf",
   },
 ];
 

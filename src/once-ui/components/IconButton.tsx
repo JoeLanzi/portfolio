@@ -27,6 +27,8 @@ interface CommonProps {
   className?: string;
   style?: React.CSSProperties;
   href?: string;
+  target?: string;
+  rel?: string;
   children?: ReactNode;
 }
 
@@ -44,6 +46,8 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps | AnchorProps>(
       tooltipPosition = "top",
       variant = "primary",
       href,
+      target,
+      rel,
       children,
       className,
       style,
@@ -84,6 +88,8 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps | AnchorProps>(
       <ElementType
         id={id}
         href={href}
+        target={target}
+        rel={rel}
         ref={ref}
         className={classNames(
           buttonStyles.button,

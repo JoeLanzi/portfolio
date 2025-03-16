@@ -8,6 +8,12 @@ const routes = {
   "/gallery": true,
 };
 
+const display = {
+  location: true,
+  time: true,
+  chatPopup: true,
+};
+
 // Enable password protection on selected routes
 // Set password in the .env file, refer to .env.example
 const protectedRoutes = {
@@ -60,12 +66,6 @@ const effects = {
     color: "neutral-alpha-weak",
     opacity: 100,
   },
-};
-
-const display = {
-  location: true,
-  time: true,
-  chatPopup: true,
 };
 
 const mailchimp = {
