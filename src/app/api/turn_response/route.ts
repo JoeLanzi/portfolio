@@ -18,6 +18,7 @@ export async function POST(request: Request) {
       model: MODEL,
       input: messages,
       tools: [{ type: "web_search_preview" }],
+      tool_choice: "auto",
       stream: true,
       parallel_tool_calls: false,
     });
