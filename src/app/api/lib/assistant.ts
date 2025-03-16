@@ -1,4 +1,4 @@
-import { DEVELOPER_PROMPT } from "@/app/api/config/constants";
+import { DEVELOPER_PROMPT, API_ENDPOINT } from "@/app/api/config/constants";
 import { useConversationStore } from "@/app/api/stores/useConversationStore";
 
 export interface ContentItem {
@@ -37,7 +37,7 @@ export const handleTurn = async (
 ) => {
   try {
     // Get response from the API
-    const response = await fetch("/api/turn_response", {
+    const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

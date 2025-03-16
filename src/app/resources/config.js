@@ -11,7 +11,7 @@ const routes = {
 const display = {
   location: true,
   time: true,
-  chatPopup: true,
+  aichat: true,
 };
 
 // Enable password protection on selected routes

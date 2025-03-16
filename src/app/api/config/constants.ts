@@ -1,3 +1,7 @@
+export const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT || "/api/api_endpoint";
+export const INITIAL_MESSAGE = "You can ask any questions about my portfolio, projects, blogs, and my resume! (Still in development!)";
+
+// OpenAI Model
 export const MODEL = "gpt-4o-mini";
 
 // Developer prompt for the assistant
@@ -57,7 +61,3 @@ RESPONSE STYLE:
 
 IMPORTANT: If you cannot find information in the provided URLs, say "I don't have that information in Joe's current portfolio." DO NOT pull information from other sources about other people named Joe Lanzi.
 `;
-
-export const API_ENDPOINT = "/api/turn_response";
-
-export const INITIAL_MESSAGE = "You can ask any questions about my portfolio, projects, blogs, and my resume! (Still in development!)";

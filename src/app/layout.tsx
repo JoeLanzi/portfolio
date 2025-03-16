@@ -160,7 +160,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           <Footer />
           <SpeedInsights />
           <Analytics />
-          {display.chatPopup && <PopChat />} 
+          {display.aichat && <PopChat />} 
         </Column>
       </ToastProvider>
     </Flex>
