@@ -7,6 +7,17 @@ dotenv.config();
 
 export async function POST(request: Request) {
   try {
+    // Check for API key in headers
+    const apiKey = request.headers.get('X-API-Key');
+    
+    // Validate API key
+    if (!apiKey || apiKey !== process.env.NEXT_PUBLIC_API_KEY) {
+      return NextResponse.json(
+        { error: "Unauthorized request" },
+        { status: 401 }
+      );
+    }
+
     const { messages } = await request.json();
     console.log("Received messages:", messages);
 

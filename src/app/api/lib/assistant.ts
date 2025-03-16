@@ -39,7 +39,10 @@ export const handleTurn = async (
     // Get response from the API
     const response = await fetch("api/turn_response", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "X-API-Key": process.env.NEXT_PUBLIC_API_KEY || "",
+      },
       body: JSON.stringify({
         messages: messages,
         tools: tools,
