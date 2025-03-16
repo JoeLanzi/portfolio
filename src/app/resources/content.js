@@ -103,14 +103,13 @@ const about = {
         timeframe: "Jan 2025 - Present",
         role: "AI Engineer",
         achievements: [
-          <>As one of the key technical architects behind GuildIQ, I'm helping revolutionize knowledge access by developing 
-          a multi-agent retrieval-augmented generation (RAG) framework that transforms how teams interact with 
-          critical information. I've implemented comprehensive full-stack optimization strategies across the framework, 
-          significantly boosting document processing speeds, reducing response times, and cutting operational overhead 
-          through efficient resource management. This innovative approach reshaped internal workflows and set a new 
-          benchmark for leveraging AI in operational environments.</>
+          <>As one of the key technical architects behind GuildIQ, I'm driving innovation by developing a multi-agent 
+          RAG framework that transforms knowledge access and streamlines marketing collateral reviews. By implementing 
+          full-stack optimizations across the system, I've significantly improved document processing speeds, reduced 
+          response times, and minimized operational overhead. This solution has reshaped internal workflows, enhanced 
+          decision-making, and set a new standard for leveraging AI in business solutions.</>
         ],
-        tags: ["Large Language Models (LLM)", "Generative AI", "Retrieval-Augmented Generation (RAG)", "Real-time Multiagent Framework", "Python", "Javascript", "MS Azure", "System Design"],
+        tags: ["Large Language Models (LLM)", "Generative AI", "Retrieval-Augmented Generation (RAG)", "Real-time Multiagentic Framework", "Python", "Typescript", "React JS", "MS Azure", "System Design", "Custom AI Functions"],
         images: [],
       },
       {
