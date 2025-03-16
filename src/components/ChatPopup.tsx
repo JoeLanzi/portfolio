@@ -10,6 +10,7 @@ import ReactMarkdown from "react-markdown";
 
 export const PopChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [message, setMessage] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const { chatMessages, setChatMessages } = useConversationStore();
@@ -38,6 +39,10 @@ export const PopChat: React.FC = () => {
 
   const handleClose = () => {
     setIsOpen(false);
+  };
+
+  const handleExpand = () => {
+    setIsExpanded(!isExpanded);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -172,7 +177,17 @@ export const PopChat: React.FC = () => {
       )}
 
       {/* Chat panel */}
-      <div className={`${styles.chatPanel} ${isOpen ? styles.open : ""}`}>
+      <div className={`${styles.chatPanel} ${isOpen ? styles.open : ""} ${isExpanded ? styles.expanded : ""}`}>
+        <div className={styles.expandButtonContainer}>
+          <IconButton
+            icon="expand"
+            onClick={handleExpand}
+            size="s"
+            variant="ghost"
+            aria-label="Expand chat"
+            className={styles.expandButton}
+          />
+        </div>
         <div className={styles.closeButtonContainer}>
           <IconButton
             icon="close"

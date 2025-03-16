@@ -1,6 +1,7 @@
 import { IconType } from "react-icons";
 import { BsChatRightDots } from "react-icons/bs";
 import { AiOutlineSend } from "react-icons/ai";
+import { BsArrowsExpandVertical } from "react-icons/bs";
 
 import {
   HiChevronUp,
@@ -73,4 +74,5 @@ export const iconLibrary: Record<string, IconType> = {
   file: FaFileLines,
   chat: BsChatRightDots,
   send: AiOutlineSend,
+  expand: BsArrowsExpandVertical,
 };
