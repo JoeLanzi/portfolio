@@ -37,7 +37,7 @@ export const handleTurn = async (
 ) => {
   try {
     // Get response from the API
-    const response = await fetch(API_ENDPOINT, {
+    const response = await fetch("api/turn_response", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

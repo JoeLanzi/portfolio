@@ -1,4 +1,4 @@
-export const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT || "/api/api_endpoint";
+export const API_ENDPOINT = "api/turn_response";
 export const INITIAL_MESSAGE = "You can ask any questions about my portfolio, projects, blogs, and my resume! (Still in development!)";
 
 // OpenAI Model
