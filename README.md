@@ -1,5 +1,7 @@
 # **Personal Portfolio with AI Integration**
 
+**Deploy for free on Vercel**: This portfolio is set up so anyone can deploy it at zero cost on Vercel's free tier (OpenAI API usage may incur minimal charges).
+
 This is my personal portfolio built using the Once UI template for Next.js with customizations including an AI-powered chat interface.
 View my [portfolio](https://joelanzi.vercel.app/).
 
@@ -25,6 +27,7 @@ npm run dev
 - 🤖 **AI Chat Assistant** - Vector search-enabled with OpenAI Response API
 - 📝 **Blog & Projects** - Simple MDX file management
 - 🎨 **Easy Customization** - Configuration-based styling
+- 🚀 **Vercel Ready** - Integrated Speed Insights and Analytics for seamless deployment
 
 ## **Basic Customization**
 
@@ -46,7 +49,7 @@ The portfolio includes an advanced AI chat assistant built on top of [OpenAI's R
 - Includes optional web search capability for answering general questions
 
 ### Requirements
-- OpenAI API key with access to the Response API
+- OpenAI API key with access to the Response API (pay-as-you-go)
 - Vector store ID for document retrieval
 - Public API key for frontend-backend authentication
 
@@ -56,6 +59,10 @@ The portfolio includes an advanced AI chat assistant built on top of [OpenAI's R
    - If you're new to OpenAI API, [sign up for an account](https://platform.openai.com/signup)
    - Follow the [Quickstart guide](https://platform.openai.com/docs/quickstart?api-mode=responses) to retrieve your API key
    - Add your key to the `.env` file as `OPENAI_API_KEY`
+   - **Cost Information**: 
+     - The API uses a pay-as-you-go model that typically costs only cents to dollars depending on usage
+     - This repo is configured to use GPT-4o mini by default to minimize costs
+     - See [OpenAI's API pricing](https://openai.com/api/pricing/) for detailed pricing information
 
 2. **Vector Store Setup**
    - Create a vector store with your portfolio content using OpenAI's vector database
@@ -93,11 +100,49 @@ These are my repositories that provide detailed explanations and example impleme
 
 These resources will help you understand how the AI chat works and how to set up everything correctly for your own implementation.
 
+## **Vercel Deployment**
+
+This project comes pre-configured for seamless deployment on Vercel's free tier:
+
+1. **One-Click Deploy**
+   - Fork this repository
+   - Go to [vercel.com](https://vercel.com) and create an account (sign up with GitHub for easier integration)
+   - Click "Add New Project" and select your forked repository
+   - Vercel will automatically detect Next.js and configure the build settings
+
+2. **Environment Variables**
+   - After initial deployment, go to your project settings
+   - Navigate to the "Environment Variables" section
+   - Add the same variables from your `.env` file:
+     ```
+     OPENAI_API_KEY=your_openai_api_key_here
+     VECTOR_STORE_ID=your_vector_store_id_here
+     NEXT_PUBLIC_API_KEY=your_public_api_key_here
+     ```
+
+3. **Speed Insights & Analytics**
+   - The project includes Vercel's Speed Insights and Analytics integration
+   - Access these features from your Vercel dashboard to monitor performance and user behavior
+   - No additional setup required - they work automatically after deployment
+
+4. **Automatic Deployments**
+   - Any commits pushed to your main branch will trigger automatic redeployment
+   - Preview deployments are created for pull requests
+   - Configure branch settings in your Vercel project settings
+
+5. **Free Tier Benefits**
+   - Unlimited personal projects
+   - Free custom domain connection
+   - Global CDN deployment
+   - Automatic HTTPS
+   - No credit card required
+
 ## **Technical Details**
 
 - **Framework**: Next.js (requires Node.js v18.17+)
 - **UI System**: [Once UI](https://once-ui.com)
 - **Original Template**: [Magic Portfolio](https://github.com/once-ui-system/magic-portfolio.git)
+- **AI Model**: GPT-4o mini (optimized for cost efficiency)
 
 - **React** - UI library
 - **OpenAI SDK** - AI integration
