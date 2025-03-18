@@ -141,7 +141,6 @@ This project comes pre-configured for seamless deployment on Vercel's free tier:
 ## **Security Features**
 
 - **API Key Authentication**: All API endpoints require a valid API key header that matches your environment variable
-- **Rate Limiting**: Middleware restricts requests per IP address to prevent abuse
 - **Secure Environment Variables**: Sensitive keys are stored in environment variables and not exposed to clients
 - **Protected Routes**: Password protection available for sensitive portfolio sections
 
