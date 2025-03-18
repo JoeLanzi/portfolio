@@ -151,6 +151,12 @@ This project comes pre-configured for seamless deployment on Vercel's free tier:
 
 The portfolio implements a serverless-friendly rate limiting approach. Each serverless instance maintains its own rate counter and temporarily blocks IPs that exceed limits until the instance is recycled. This creates a pragmatic "cooling-off period" for abusive traffic while allowing legitimate users to access your site. This approach provides effective protection during high-traffic periods without requiring complex databases or permanent IP bans—striking the right balance between security and simplicity for a personal portfolio.
 
+This security measures implement what experts call "economic disincentive" - making the effort required to attack exceed any potential gain. 
+
+### Additional Protection
+
+If you're concerned about OpenAI API costs, consider setting usage caps in your OpenAI dashboard as an additional safeguard against unexpected charges. This creates a hard limit that prevents excessive API usage regardless of other security measures.
+
 ## **Technical Details**
 
 - **Framework**: Next.js (requires Node.js v18.17+)
