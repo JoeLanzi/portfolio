@@ -5,13 +5,41 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// Access the token store from the get-token route
+// In a real app, you'd use a database or cache service
+declare global {
+  var tokenStore: Map<string, number> | undefined;
+}
+
+// Initialize if not exists
+if (!global.tokenStore) {
+  global.tokenStore = new Map<string, number>();
+}
+
 export async function POST(request: Request) {
   try {
     // Check for API key or token in headers
     const apiKey = request.headers.get('X-API-Key');
     
-    // Validate API key (server-to-server) or token (client-to-server)
-    if (!apiKey || apiKey !== process.env.API_KEY) {
+    // Validate direct API key or client token
+    if (apiKey === process.env.API_KEY) {
+      // Valid API key - server-to-server request
+    } else if (global.tokenStore && global.tokenStore.has(apiKey || '')) {
+      // Check if token is valid and not expired
+      const expiry = global.tokenStore.get(apiKey || '')!;
+      
+      if (Date.now() > expiry) {
+        global.tokenStore.delete(apiKey || '');
+        return NextResponse.json(
+          { error: "Token expired" },
+          { status: 401 }
+        );
+      }
+      
+      // Token is valid - consume it (one-time use)
+      global.tokenStore.delete(apiKey || '');
+    } else {
+      // Neither valid API key nor valid token
       return NextResponse.json(
         { error: "Unauthorized request" },
         { status: 401 }
