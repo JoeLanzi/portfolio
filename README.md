@@ -1,9 +1,10 @@
-# **Personal Portfolio with AI Integration**
+# **AI-Powered Portfolio Template with Next.js**
 
-**Deploy for free on Vercel**: This portfolio is set up so anyone can deploy it at zero cost on Vercel's free tier (OpenAI API usage may incur minimal charges).
+A modern, customizable portfolio template featuring an OpenAI-powered chat assistant that can answer questions about your work and experience. Built with Next.js and Once UI, this template includes basic security features to prevent abuse.
 
-This is my personal portfolio built using the Once UI template for Next.js with customizations including an AI-powered chat interface.
-View my [portfolio](https://joelanzi.vercel.app/).
+**100% Free for Personal Use**: Deploy on Vercel's free tier with minimal configuration. The AI integration uses pay-as-you-go OpenAI API (typically just cents/month for personal portfolios).
+
+**Live Demo**: [View Portfolio Example](https://joelanzi.vercel.app/)
 
 ## **Quick Start**
 
@@ -136,6 +137,13 @@ This project comes pre-configured for seamless deployment on Vercel's free tier:
    - Global CDN deployment
    - Automatic HTTPS
    - No credit card required
+
+## **Security Features**
+
+- **API Key Authentication**: All API endpoints require a valid API key header that matches your environment variable
+- **Rate Limiting**: Middleware restricts requests per IP address to prevent abuse
+- **Secure Environment Variables**: Sensitive keys are stored in environment variables and not exposed to clients
+- **Protected Routes**: Password protection available for sensitive portfolio sections
 
 ## **Technical Details**
 
