@@ -71,7 +71,7 @@ The portfolio includes an advanced AI chat assistant built on top of [OpenAI's R
    - Once created, copy your vector store ID to the `.env` file as `VECTOR_STORE_ID`
 
 3. **Public API Key**
-   - Generate a random string to use as your `NEXT_PUBLIC_API_KEY` (can use any UUID generator)
+   - Generate a random string to use as your `API_KEY` (can use any UUID generator)
    - This key authenticates frontend requests to your backend API
    - Add this key to your `.env` file
 
@@ -80,7 +80,7 @@ The portfolio includes an advanced AI chat assistant built on top of [OpenAI's R
    # Required in your .env file
    OPENAI_API_KEY=your_openai_api_key_here
    VECTOR_STORE_ID=your_vector_store_id_here
-   NEXT_PUBLIC_API_KEY=your_public_api_key_here
+   API_KEY=your_public_api_key_here
    ```
 
 5. **Enable/Disable Chat**
@@ -118,7 +118,7 @@ This project comes pre-configured for seamless deployment on Vercel's free tier:
      ```
      OPENAI_API_KEY=your_openai_api_key_here
      VECTOR_STORE_ID=your_vector_store_id_here
-     NEXT_PUBLIC_API_KEY=your_public_api_key_here
+     API_KEY=your_public_api_key_here
      ```
 
 3. **Speed Insights & Analytics**

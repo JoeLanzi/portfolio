@@ -26,7 +26,7 @@ export async function sendChatMessage(userMessage: string, onMessage: (data: any
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-API-Key": process.env.NEXT_PUBLIC_API_KEY || "",
+      "X-API-Key": process.env.API_KEY || "",
     },
     body: JSON.stringify({ messages }),
   });
