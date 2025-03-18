@@ -147,6 +147,10 @@ This project comes pre-configured for seamless deployment on Vercel's free tier:
 - **Secure Environment Variables**: Sensitive keys stored server-side and never exposed to clients
 - **Protected Routes**: Password protection available for sensitive portfolio sections
 
+### Rate Limiting Implementation
+
+The portfolio implements a serverless-friendly rate limiting approach. Each serverless instance maintains its own rate counter and temporarily blocks IPs that exceed limits until the instance is recycled. This creates a pragmatic "cooling-off period" for abusive traffic while allowing legitimate users to access your site. This approach provides effective protection during high-traffic periods without requiring complex databases or permanent IP bans—striking the right balance between security and simplicity for a personal portfolio.
+
 ## **Technical Details**
 
 - **Framework**: Next.js (requires Node.js v18.17+)
