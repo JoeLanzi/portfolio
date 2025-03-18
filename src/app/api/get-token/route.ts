@@ -1,35 +1,34 @@
 import { NextResponse } from "next/server";
-import crypto from "crypto";
+import { sign } from "jsonwebtoken";
 
-// Use global token store to share between routes
-declare global {
-  var tokenStore: Map<string, number> | undefined;
-}
-
-// Initialize if not exists
-if (!global.tokenStore) {
-  global.tokenStore = new Map<string, number>();
-}
-
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    // Generate a random token
-    const token = crypto.randomBytes(16).toString('hex');
+    // Check if request comes from your domain
+    const origin = request.headers.get('origin');
+    const referer = request.headers.get('referer');
     
-    // Set expiration time (5 minutes from now)
-    const expiry = Date.now() + 5 * 60 * 1000;
+    // Allow any request from your domain
+    const allowedOrigins = [
+      'https://joelanzi.vercel.app',
+      'http://localhost:3000', 
+      'http://localhost:3001'
+    ];
     
-    // Store the token with its expiry in the global store
-    global.tokenStore?.set(token, expiry);
+    const isAllowedOrigin = allowedOrigins.some(allowedOrigin => 
+      origin?.includes(allowedOrigin) || referer?.includes(allowedOrigin)
+    );
     
-    // Clean up expired tokens occasionally
-    if (Math.random() < 0.1) { // 10% chance to clean up on each request
-      for (const [storedToken, expiryTime] of (global.tokenStore?.entries() || [])) {
-        if (expiryTime < Date.now()) {
-          global.tokenStore?.delete(storedToken);
-        }
-      }
+    if (!isAllowedOrigin) {
+      return NextResponse.json({ error: "Unauthorized origin" }, { status: 401 });
     }
+
+    // Create a signed JWT using API_KEY
+    const token = sign(
+      { 
+        exp: Math.floor(Date.now() / 1000) + (5 * 60)
+      }, 
+      process.env.API_KEY || 'fallback-secret'
+    );
     
     return NextResponse.json({ token });
   } catch (error) {

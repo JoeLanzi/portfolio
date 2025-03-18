@@ -70,9 +70,9 @@ The portfolio includes an advanced AI chat assistant built on top of [OpenAI's R
    - Follow my detailed guide at [JoeLanzi/vector-store](https://github.com/JoeLanzi/vector-store)
    - Once created, copy your vector store ID to the `.env` file as `VECTOR_STORE_ID`
 
-3. **Public API Key**
+3. **API Key Setup**
    - Generate a random string to use as your `API_KEY` (can use any UUID generator)
-   - This key authenticates frontend requests to your backend API
+   - This key serves as the JWT secret for secure authentication
    - Add this key to your `.env` file
 
 4. **Environment Configuration**
@@ -140,12 +140,11 @@ This project comes pre-configured for seamless deployment on Vercel's free tier:
 
 ## **Security Features**
 
-- **Rate Limiting**: Middleware restricts requests per IP address to prevent DDoS attacks
-- **Token-Based Authentication**: Uses secure, temporary single-use tokens which expire for client requests
-- **API Key Authentication**: Server-side authentication for backend processes
-- **Request Validation**: Validates all incoming API requests through multiple security layers
-- **Secure Environment Variables**: Sensitive keys stored server-side and not exposed to clients
-- **Protected Routes**: Password protection for sensitive portfolio sections
+- **Rate Limiting**: Protects API endpoints from excessive requests
+- **Token Authentication**: Secure, time-limited access tokens for API requests
+- **Request Validation**: Validates request origins and authenticates all API calls
+- **Secure Environment Variables**: Sensitive keys stored server-side and never exposed to clients
+- **Protected Routes**: Password protection available for sensitive portfolio sections
 
 ## **Technical Details**
 

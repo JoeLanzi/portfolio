@@ -2,48 +2,27 @@ import { MODEL } from "@/app/api/config/constants";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import dotenv from "dotenv";
+import { verify } from "jsonwebtoken";
 
 dotenv.config();
 
-// Access the token store from the get-token route
-// In a real app, you'd use a database or cache service
-declare global {
-  var tokenStore: Map<string, number> | undefined;
-}
-
-// Initialize if not exists
-if (!global.tokenStore) {
-  global.tokenStore = new Map<string, number>();
-}
-
 export async function POST(request: Request) {
   try {
-    // Check for API key or token in headers
+    // Check for token in headers
     const apiKey = request.headers.get('X-API-Key');
     
-    // Validate direct API key or client token
+    // Direct API key for admin/server use
     if (apiKey === process.env.API_KEY) {
-      // Valid API key - server-to-server request
-    } else if (global.tokenStore && global.tokenStore.has(apiKey || '')) {
-      // Check if token is valid and not expired
-      const expiry = global.tokenStore.get(apiKey || '')!;
-      
-      if (Date.now() > expiry) {
-        global.tokenStore.delete(apiKey || '');
-        return NextResponse.json(
-          { error: "Token expired" },
-          { status: 401 }
-        );
+      // Valid admin key - proceed
+    } 
+    // JWT verification for client requests
+    else {
+      try {
+        // Verify using the API_KEY
+        verify(apiKey || '', process.env.API_KEY || 'fallback-secret');
+      } catch (err) {
+        return NextResponse.json({ error: "Unauthorized request" }, { status: 401 });
       }
-      
-      // Token is valid - consume it (one-time use)
-      global.tokenStore.delete(apiKey || '');
-    } else {
-      // Neither valid API key nor valid token
-      return NextResponse.json(
-        { error: "Unauthorized request" },
-        { status: 401 }
-      );
     }
 
     const { messages } = await request.json();
