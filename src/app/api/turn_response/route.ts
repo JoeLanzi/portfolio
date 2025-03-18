@@ -7,11 +7,20 @@ dotenv.config();
 
 export async function POST(request: Request) {
   try {
-    // Check for API key in headers
+    // Check for API key or token in headers
     const apiKey = request.headers.get('X-API-Key');
     
-    // Validate API key
-    if (!apiKey || apiKey !== process.env.API_KEY) {
+    // Validate API key (server-to-server) or token (client-to-server)
+    if (apiKey === process.env.API_KEY) {
+      // Direct API key validation (for server-to-server calls)
+      // Proceed with the request
+    } else if (apiKey && global.validTokens && global.validTokens[apiKey] && global.validTokens[apiKey] > Date.now()) {
+      // Token validation (for client-to-server calls)
+      // Token is valid and not expired
+      // Clean up the token after use (one-time use)
+      delete global.validTokens[apiKey];
+    } else {
+      // Neither valid API key nor valid token
       return NextResponse.json(
         { error: "Unauthorized request" },
         { status: 401 }

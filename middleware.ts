@@ -10,8 +10,9 @@ export function middleware(request: NextRequest) {
     return new NextResponse('IP address not found', { status: 400 });
   }
 
+  // Rate limiting implementation
   const now = Date.now();
-  const limit = 6; // Max requests
+  const limit = 5; // Max requests
   const timeframe = 1 * 60 * 1000; // 1 minute
 
   const rateLimitInfo = rateLimit.get(ip) || { count: 0, timestamp: now };
