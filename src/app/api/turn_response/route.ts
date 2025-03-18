@@ -8,18 +8,21 @@ dotenv.config();
 
 export async function POST(request: Request) {
   try {
-    // Check for token in headers
     const apiKey = request.headers.get('X-API-Key');
     
-    // Direct API key for admin/server use
+    // Check for environment variable
+    if (!process.env.API_KEY) {
+      console.error("API_KEY environment variable not set");
+      return NextResponse.json({ error: "Server misconfiguration" }, { status: 500 });
+    }
+    
+    // Direct API key check
     if (apiKey === process.env.API_KEY) {
       // Valid admin key - proceed
-    } 
-    // JWT verification for client requests
-    else {
+    } else {
       try {
         // Verify using the API_KEY
-        verify(apiKey || '', process.env.API_KEY || 'fallback-secret');
+        verify(apiKey || '', process.env.API_KEY);
       } catch (err) {
         return NextResponse.json({ error: "Unauthorized request" }, { status: 401 });
       }

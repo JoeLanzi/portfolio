@@ -90,6 +90,7 @@ The portfolio includes an advanced AI chat assistant built on top of [OpenAI's R
    - Change AI model in `api/config/constants.ts`
    - Modify initial greeting message
    - Customize the system prompt (DEVELOPER_PROMPT) to match your portfolio's context and style
+   - Add your domain to `ALLOWED_ORIGINS` in `api/config/constants.ts` to control API access
    - Enable/configure web search tool in the `route.ts` file
    - Adjust API endpoints as needed
 

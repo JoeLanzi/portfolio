@@ -4,6 +4,13 @@ export const INITIAL_MESSAGE = "You can ask any questions about my portfolio, pr
 // OpenAI Model
 export const MODEL = "gpt-4o-mini";
 
+// Allowed origins for API requests
+export const ALLOWED_ORIGINS = [
+  'https://joelanzi.vercel.app', // Change to your production domain
+  'http://localhost:3000', 
+  'http://localhost:3001'
+];
+
 // Developer prompt for the assistant
 export const DEVELOPER_PROMPT = `
 You are an AI Assistant for Joe Lanzi's portfolio website (joelanzi.vercel.app).

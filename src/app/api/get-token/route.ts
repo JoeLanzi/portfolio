@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sign } from "jsonwebtoken";
+import { ALLOWED_ORIGINS } from "@/app/api/config/constants";
 
 export async function GET(request: Request) {
   try {
@@ -7,14 +8,8 @@ export async function GET(request: Request) {
     const origin = request.headers.get('origin');
     const referer = request.headers.get('referer');
     
-    // Allow any request from your domain
-    const allowedOrigins = [
-      'https://joelanzi.vercel.app',
-      'http://localhost:3000', 
-      'http://localhost:3001'
-    ];
-    
-    const isAllowedOrigin = allowedOrigins.some(allowedOrigin => 
+    // Use the origins from constants file
+    const isAllowedOrigin = ALLOWED_ORIGINS.some(allowedOrigin => 
       origin?.includes(allowedOrigin) || referer?.includes(allowedOrigin)
     );
     
@@ -22,12 +17,17 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Unauthorized origin" }, { status: 401 });
     }
 
+    if (!process.env.API_KEY) {
+      console.error("API_KEY environment variable not set");
+      return NextResponse.json({ error: "Server misconfiguration" }, { status: 500 });
+    }
+
     // Create a signed JWT using API_KEY
     const token = sign(
       { 
         exp: Math.floor(Date.now() / 1000) + (5 * 60)
       }, 
-      process.env.API_KEY || 'fallback-secret'
+      process.env.API_KEY
     );
     
     return NextResponse.json({ token });
