@@ -6,6 +6,8 @@ A modern, customizable portfolio template featuring an OpenAI-powered chat assis
 
 **Live Demo**: [View Portfolio Example](https://joelanzi.vercel.app/)
 
+![Portfolio Screenshot](public/images/homepage.png)
+
 ## **Quick Start**
 
 ```bash
