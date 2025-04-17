@@ -2,7 +2,7 @@ export const API_ENDPOINT = "api/turn_response";
 export const INITIAL_MESSAGE = "You can ask any questions about my portfolio, projects, blogs, and my resume! (Still in development!)";
 
 // OpenAI Model
-export const MODEL = "gpt-4o-mini";
+export const MODEL = "gpt-4.1-nano";
 
 // Allowed origins for API requests
 export const ALLOWED_ORIGINS = [
