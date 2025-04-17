@@ -7,6 +7,7 @@ export const MODEL = "gpt-4.1-nano";
 // Allowed origins for API requests
 export const ALLOWED_ORIGINS = [
   'https://joelanzi.com', // Change to your production domain
+  'https://www.joelanzi.com',
   'http://localhost:3000', 
   'http://localhost:3001'
 ];
