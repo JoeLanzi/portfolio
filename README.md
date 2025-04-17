@@ -4,7 +4,7 @@ A modern, customizable portfolio template featuring an OpenAI-powered chat assis
 
 **100% Free for Personal Use**: Deploy on Vercel's free tier with minimal configuration. The AI integration uses pay-as-you-go OpenAI API (typically just cents/month for personal portfolios).
 
-**Live Demo**: [View Portfolio Example](https://joelanzi.vercel.app/)
+**Live Demo**: [View Portfolio Example](https://joelanzi.com/)
 
 ![Portfolio Screenshot](public/images/homepage.png)
 

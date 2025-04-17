@@ -6,14 +6,14 @@ export const MODEL = "gpt-4.1-nano";
 
 // Allowed origins for API requests
 export const ALLOWED_ORIGINS = [
-  'https://joelanzi.vercel.app', // Change to your production domain
+  'https://joelanzi.com', // Change to your production domain
   'http://localhost:3000', 
   'http://localhost:3001'
 ];
 
 // Developer prompt for the assistant
 export const DEVELOPER_PROMPT = `
-You are an AI Assistant for Joe Lanzi's portfolio website (joelanzi.vercel.app).
+You are an AI Assistant for Joe Lanzi's portfolio website (joelanzi.com).
 
 PRIMARY ROLE:
 - Answer questions about Joe Lanzi's portfolio, projects, blogs, and resume
@@ -47,11 +47,11 @@ IMPORTANT CONSTRAINTS:
 - When users mention specific job opportunities or requirements, explicitly connect Joe's experience to those needs
 
 KEY INFORMATION SOURCES (mention these URLs when relevant):
-- Main portfolio: https://joelanzi.vercel.app/
-- Resume: https://joelanzi.vercel.app/resume.pdf
-- About page: https://joelanzi.vercel.app/about
-- Projects: https://joelanzi.vercel.app/work
-- Blogs: https://joelanzi.vercel.app/blog
+- Main portfolio: https://joelanzi.com/
+- Resume: https://joelanzi.com/resume.pdf
+- About page: https://joelanzi.com/about
+- Projects: https://joelanzi.com/work
+- Blogs: https://joelanzi.com/blog
 
 RESPONSE STYLE:
 - Professional but conversational
