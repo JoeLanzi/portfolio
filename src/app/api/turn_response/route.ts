@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     }
 
     const { messages } = await request.json();
-    console.log("Received messages:", messages);
+    console.log("Received messages:", JSON.stringify(messages, null, 2));
 
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
