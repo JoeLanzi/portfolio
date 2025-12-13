@@ -105,7 +105,7 @@ const about = {
         achievements: [
           <>Leading enterprise-scale AI initiatives across multiple teams, architecting and deploying multi-agentic solutions that drive company-wide transformation. 
           I design scalable agentic frameworks and develop production applications that leverage advanced multi-agent workflows. My responsibilities span architectural design, 
-          solution engineering, full-stack DevOps implementation, and comprehensive cloud infrastructure management—enabling rapid deployment and operational excellence across the AI ecosystem.</>
+          solution engineering, full-stack DevOps implementation, and comprehensive cloud infrastructure management, enabling rapid deployment and operational excellence across the AI ecosystem.</>
         ],
         tags: ["Large Language Models (LLM)", "Generative AI", "Multi-Agent Systems", "Agentic Workflows", "Architectural Design", "DevOps", "Python", "Typescript", "React JS", "MS Azure", "System Design", "Cloud Infrastructure"],
         images: [],
