@@ -8,6 +8,7 @@ interface ConversationState {
   setConversationItems: (messages: any[]) => void;
   addChatMessage: (item: any) => void;
   addConversationItem: (message: any) => void;
+  resetConversation: () => void;
 }
 
 export const useConversationStore = create<ConversationState>((set) => ({
@@ -24,6 +25,9 @@ export const useConversationStore = create<ConversationState>((set) => ({
   },
   addConversationItem: (message) => {
     set((state) => ({ conversationItems: [...state.conversationItems, message] }));
+  },
+  resetConversation: () => {
+    set({ chatMessages: [], conversationItems: [] });
   },
 }));
 

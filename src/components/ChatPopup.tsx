@@ -3,9 +3,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatPopup.module.scss";
 import { IconButton, Flex, Input, Heading, Text } from "@/once-ui/components";
-import { sendChatMessage } from "@/app/api/chat";
+import { useChat, INITIAL_MESSAGE } from "@/app/api";
 import { useConversationStore } from "@/app/api/stores/useConversationStore";
-import { INITIAL_MESSAGE } from "@/app/api/config/constants";
 import ReactMarkdown from "react-markdown";
 
 export const PopChat: React.FC = () => {
@@ -71,7 +70,7 @@ export const PopChat: React.FC = () => {
   
       try {
         // Send message to API
-        await sendChatMessage(message, (data) => {
+        await useChat(message, (data) => {
           const { event, data: eventData } = data;
           
           // Check for search-related events

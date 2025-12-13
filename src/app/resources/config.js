@@ -14,12 +14,6 @@ const display = {
   aichat: true,
 };
 
-// Enable password protection on selected routes
-// Set password in the .env file, refer to .env.example
-const protectedRoutes = {
-  "/work/automate-design-handovers-with-a-figma-to-code-pipeline": true,
-};
-
 const style = {
   theme: "dark", // dark | light
   neutral: "gray", // sand | gray | slate
@@ -107,4 +101,4 @@ const mailchimp = {
   },
 };
 
-export { routes, protectedRoutes, effects, style, display, mailchimp, baseURL };
+export { routes, effects, style, display, mailchimp, baseURL };

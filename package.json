@@ -23,7 +23,7 @@
     "jsonwebtoken": "^9.0.2",
     "next": "^14.2.16",
     "next-mdx-remote": "^5.0.0",
-    "openai": "^4.87.3",
+    "openai": "^6.10.0",
     "postcss": "^8.4.39",
     "postcss-preset-env": "^9.5.15",
     "prismjs": "^1.29.0",

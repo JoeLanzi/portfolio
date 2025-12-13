@@ -1,14 +1,12 @@
 import { useConversationStore } from "@/app/api/stores/useConversationStore";
-import { DEVELOPER_PROMPT, API_ENDPOINT } from "@/app/api/config/constants";
+import { API_ENDPOINT, DEVELOPER_PROMPT } from "@/app/api/lib/core";
 
-export interface ChatReply {
-  message: string;
-}
-
-// Add this function to get a token before making API calls
-async function getApiToken() {
+/**
+ * Fetches API token from the server
+ */
+async function getApiToken(): Promise<string> {
   try {
-    const response = await fetch('/api/get-token');
+    const response = await fetch('/api/routes/get-token');
     if (!response.ok) {
       throw new Error('Failed to get API token');
     }
@@ -20,47 +18,60 @@ async function getApiToken() {
   }
 }
 
-export async function sendChatMessage(userMessage: string, onMessage: (data: any) => void): Promise<void> {
-  const { conversationItems, addConversationItem } = useConversationStore.getState();
+/**
+ * Sends a chat message and streams the response
+ * @param userMessage - The user's message
+ * @param onMessage - Callback to handle streaming events
+ */
+export async function useChat(
+  userMessage: string,
+  onMessage: (data: any) => void
+): Promise<void> {
+  const {
+    conversationItems,
+    addConversationItem,
+  } = useConversationStore.getState();
 
-  // Add the user's message to the conversation items
-  const userMessageItem = { 
-    role: "user", 
-    content: [{ type: "input_text", text: userMessage }] 
+  // Add user message to conversation
+  const userMessageItem = {
+    role: "user",
+    content: [{ type: "input_text", text: userMessage }],
   };
   addConversationItem(userMessageItem);
 
-  // Prepare the messages to be sent, including system prompts
+  // Build messages array with system prompt
   const messages = [
     { role: "system", content: DEVELOPER_PROMPT },
     ...conversationItems,
     userMessageItem,
   ];
 
+  const requestBody = {
+    messages,
+  };
+
   try {
-    // Get a token for this request
     const token = await getApiToken();
-    
+
     const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": token, // Use the token instead of the actual API key
+        "X-API-Key": token,
       },
-      body: JSON.stringify({ messages }),
+      body: JSON.stringify(requestBody),
     });
 
     if (!response.ok) {
       throw new Error("Failed to send message");
     }
 
-    // Reader for streaming data
+    // Process streaming response
     const reader = response.body!.getReader();
     const decoder = new TextDecoder();
     let done = false;
     let buffer = "";
     let assistantMessage = "";
-    let assistantMessageId = null;
 
     while (!done) {
       const { value, done: doneReading } = await reader.read();
@@ -78,16 +89,14 @@ export async function sendChatMessage(userMessage: string, onMessage: (data: any
             done = true;
             break;
           }
+
           const data = JSON.parse(dataStr);
 
-          // Collect assistant response text
+          // Collect assistant text from delta events
           if (data.event === "response.output_text.delta") {
-            const { delta, item_id } = data.data;
+            const { delta } = data.data;
             if (typeof delta === "string") {
               assistantMessage += delta;
-              if (!assistantMessageId) {
-                assistantMessageId = item_id;
-              }
             }
           }
 
@@ -96,19 +105,16 @@ export async function sendChatMessage(userMessage: string, onMessage: (data: any
       }
     }
 
-    // Once streaming is complete, add the assistant's full response to conversation history
+    // Add assistant message to conversation
     if (assistantMessage) {
       const assistantMessageItem = {
         role: "assistant",
-        id: assistantMessageId,
-        content: [{ type: "output_text", text: assistantMessage }]
+        content: [{ type: "output_text", text: assistantMessage }],
       };
-      
-      // Add to conversation history for future context
       addConversationItem(assistantMessageItem);
     }
 
-    // Handle any remaining data in buffer
+    // Handle remaining buffer data
     if (buffer && buffer.startsWith("data: ")) {
       const dataStr = buffer.slice(6);
       if (dataStr !== "[DONE]") {
@@ -117,7 +123,7 @@ export async function sendChatMessage(userMessage: string, onMessage: (data: any
       }
     }
   } catch (error) {
-    console.error('Error sending message:', error);
+    console.error("Error sending message:", error);
     throw error;
   }
 }

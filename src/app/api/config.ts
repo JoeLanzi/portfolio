@@ -1,18 +1,19 @@
-export const API_ENDPOINT = "api/turn_response";
+/**
+ * API CONFIGURATION & CONSTANTS
+ * OpenAI and chat-related configuration
+ */
+
+export const API_ENDPOINT = "/api/routes/stream-response";
 export const INITIAL_MESSAGE = "You can ask any questions about my portfolio, projects, blogs, and my resume! (Still in development!)";
+export const MODEL = "gpt-4.1";
 
-// OpenAI Model
-export const MODEL = "gpt-4.1-nano";
-
-// Allowed origins for API requests
 export const ALLOWED_ORIGINS = [
-  'https://joelanzi.com', // Change to your production domain
+  'https://joelanzi.com',
   'https://www.joelanzi.com',
   'http://localhost:3000', 
   'http://localhost:3001'
 ];
 
-// Developer prompt for the assistant
 export const DEVELOPER_PROMPT = `
 You are an AI Assistant for Joe Lanzi's portfolio website (joelanzi.com).
 
