@@ -4,7 +4,7 @@
  */
 
 export const API_ENDPOINT = "/api/routes/stream-response";
-export const INITIAL_MESSAGE = "You can ask any questions about my portfolio, projects, blogs, and my resume! (Still in development!)";
+export const INITIAL_MESSAGE = "You can ask any questions about my portfolio, projects, blogs, and my resume!";
 export const MODEL = "gpt-4.1";
 
 export const ALLOWED_ORIGINS = [

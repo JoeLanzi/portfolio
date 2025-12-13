@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          for await (const event of events) {
+          for await (const event of events as unknown as AsyncIterable<any>) {
             const data = JSON.stringify({
               event: event.type,
               data: event,
