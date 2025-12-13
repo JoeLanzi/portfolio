@@ -101,15 +101,13 @@ const about = {
         company: "Guild Mortgage",
         link: "https://www.guildmortgage.com/about-us/news/press-release/guild-mortgage-launches-custom-ai-system-streamlining-tasks-and-improving-efficiency/",
         timeframe: "Jan 2025 - Present",
-        role: "AI Engineer",
+        role: "Senior AI Engineer",
         achievements: [
-          <>As one of the key technical architects behind GuildIQ, I'm driving innovation by developing a multi-agent 
-          RAG framework that transforms knowledge access and streamlines marketing collateral reviews. By implementing 
-          full-stack optimizations across the system, I've significantly improved document processing speeds, reduced 
-          response times, and minimized operational overhead. This solution has reshaped internal workflows, enhanced 
-          decision-making, and set a new standard for leveraging AI in business solutions.</>
+          <>Leading enterprise-scale AI initiatives across multiple teams, architecting and deploying multi-agentic solutions that drive company-wide transformation. 
+          I design scalable agentic frameworks and develop production applications that leverage advanced multi-agent workflows. My responsibilities span architectural design, 
+          solution engineering, full-stack DevOps implementation, and comprehensive cloud infrastructure management—enabling rapid deployment and operational excellence across the AI ecosystem.</>
         ],
-        tags: ["Large Language Models (LLM)", "Generative AI", "Retrieval-Augmented Generation (RAG)", "Real-time Multiagentic Framework", "Python", "Typescript", "React JS", "MS Azure", "System Design", "Custom AI Functions"],
+        tags: ["Large Language Models (LLM)", "Generative AI", "Multi-Agent Systems", "Agentic Workflows", "Architectural Design", "DevOps", "Python", "Typescript", "React JS", "MS Azure", "System Design", "Cloud Infrastructure"],
         images: [],
       },
       {
