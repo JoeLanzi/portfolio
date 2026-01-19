@@ -103,9 +103,11 @@ const about = {
         timeframe: "Jan 2025 - Present",
         role: "Senior AI Engineer",
         achievements: [
-          <>Leading enterprise-scale AI initiatives across multiple teams, architecting and deploying multi-agentic solutions that drive company-wide transformation. 
-          I design scalable agentic frameworks and develop production applications that leverage advanced multi-agent workflows. My responsibilities span architectural design, 
-          solution engineering, full-stack DevOps implementation, and comprehensive cloud infrastructure management, enabling rapid deployment and operational excellence across the AI ecosystem.</>
+          <>Leading enterprise-scale AI initiatives across multiple teams, architecting and deploying advanced LLM and 
+          agent-driven platforms that transform knowledge management and business operations. I design scalable RAG pipelines, 
+          multi-agent frameworks, and custom integration layers that enable AI to retrieve information, reason over data, 
+          and execute real organizational actions. My work spans architectural design, algorithm development, full-stack 
+          engineering, DevOps automation, and cloud deployment, ensuring high-performance, reliable, and production-ready AI systems.</>
         ],
         tags: ["Large Language Models (LLM)", "Generative AI", "Multi-Agent Systems", "Agentic Workflows", "Architectural Design", "DevOps", "Python", "Typescript", "React JS", "MS Azure", "System Design", "Cloud Infrastructure"],
         images: [],
