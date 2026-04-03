@@ -63,6 +63,23 @@ function getInternalHref(href?: string): string | null {
   return null;
 }
 
+function shouldOpenInNewTab(href?: string): boolean {
+  if (!href) {
+    return false;
+  }
+
+  if (href.startsWith("/")) {
+    return href.toLowerCase().endsWith(".pdf");
+  }
+
+  try {
+    const url = new URL(href);
+    return INTERNAL_CHAT_HOSTS.has(url.host) && url.pathname.toLowerCase().endsWith(".pdf");
+  } catch {
+    return false;
+  }
+}
+
 export const PopChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -253,6 +270,18 @@ export const PopChat: React.FC = () => {
         components={{
           a: ({ href, children }) => (
             (() => {
+              if (shouldOpenInNewTab(href)) {
+                return (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {children}
+                  </a>
+                );
+              }
+
               const internalHref = getInternalHref(href);
 
               if (internalHref) {
