@@ -96,6 +96,10 @@ export const PopChat: React.FC = () => {
   }, [chatMessages]);
 
   useEffect(() => {
+    if (chatMessages.length > 0) {
+      return;
+    }
+
     const initialAssistantMessage: ChatMessageItem = {
       type: "message",
       role: "assistant",
@@ -103,7 +107,7 @@ export const PopChat: React.FC = () => {
     };
 
     setChatMessages([initialAssistantMessage]);
-  }, [setChatMessages]);
+  }, [chatMessages.length, setChatMessages]);
 
   const handleClick = () => {
     setIsOpen(true);

@@ -55,6 +55,15 @@ function toAbsoluteUrl(path: string): string {
 function cleanText(value: string): string {
   let text = value;
 
+  text = text
+    .replaceAll("Â·", "·")
+    .replaceAll("â€”", "—")
+    .replaceAll("â€“", "–")
+    .replaceAll("â€™", "'")
+    .replaceAll("â€œ", "\"")
+    .replaceAll("â€", "\"")
+    .replaceAll("â€¦", "...");
+
   for (const [from, to] of Object.entries(TEXT_REPLACEMENTS)) {
     text = text.replaceAll(from, to);
   }
@@ -149,6 +158,10 @@ function buildEducationSection(): string {
 }
 
 function buildProjectsSection(projects: ContentPost[]): string {
+  if (!projects.length) {
+    return "## Projects\n- No projects are currently listed on the site.";
+  }
+
   const items = projects
     .map((project) => {
       const lines = [
@@ -178,6 +191,10 @@ function buildProjectsSection(projects: ContentPost[]): string {
 }
 
 function buildBlogSection(posts: ContentPost[]): string {
+  if (!posts.length) {
+    return "## Blog Posts\n- No blog posts are currently listed on the site.";
+  }
+
   const items = posts
     .map((post) => {
       const lines = [
@@ -218,22 +235,29 @@ function buildLinksSection(): string {
 }
 
 function buildSiteSection(projects: ContentPost[], posts: ContentPost[]): string {
+  const projectCount = projects.length;
+  const postCount = posts.length;
   const projectTitles = projects.map((project) => project.metadata.title).join(", ");
   const postTitles = posts.map((post) => post.metadata.title).join(", ");
 
   return `## Site Structure
+- The latest site inventory in this context is authoritative and overrides any older assumptions in the conversation.
 - The site has these primary pages: Home, About, Projects, Blog, and Resume.
 - Projects page URL: ${toAbsoluteUrl("/projects")}
 - Projects page summary: ${work.description}
+- Projects page count: ${projectCount}
 - Projects currently listed: ${projectTitles || "None listed"}
 - Blog page URL: ${toAbsoluteUrl("/blog")}
 - Blog page summary: ${blog.description}
+- Blog page count: ${postCount}
 - Blog posts currently listed: ${postTitles || "None listed"}
 - About page URL: ${toAbsoluteUrl("/about")}
 - Resume URL: ${toAbsoluteUrl("/resume.pdf")}`;
 }
 
 function buildLiveSiteSnapshot(projects: ContentPost[], posts: ContentPost[], pageContext?: PageContext): string {
+  const projectCount = projects.length;
+  const postCount = posts.length;
   const projectList = projects.length
     ? projects.map((project) => `- ${project.metadata.title}: ${toAbsoluteUrl(`/projects/${project.slug}`)}`).join("\n")
     : "- None";
@@ -243,8 +267,11 @@ function buildLiveSiteSnapshot(projects: ContentPost[], posts: ContentPost[], pa
 
   const lines = [
     "## Live Site Snapshot",
+    "- This live snapshot overrides any earlier claims in the conversation about what is currently on the site.",
     `- Projects page: ${toAbsoluteUrl("/projects")}`,
+    `- Projects count: ${projectCount}`,
     `- Blog page: ${toAbsoluteUrl("/blog")}`,
+    `- Blog post count: ${postCount}`,
     `- Resume: ${toAbsoluteUrl("/resume.pdf")}`,
     `- Current path: ${pageContext?.pathname || "unknown"}`,
     "### Current Projects",
@@ -289,12 +316,16 @@ function buildCurrentPageSection(
   if (pathname === "/blog") {
     lines.push("- Section: Blog index");
     lines.push(`- Summary: ${blog.description}`);
+    lines.push(`- Blog post count: ${posts.length}`);
+    lines.push(`- Blog posts listed: ${posts.map((post) => post.metadata.title).join(", ") || "None listed"}`);
     return lines.join("\n");
   }
 
   if (pathname === "/projects") {
     lines.push("- Section: Projects index");
     lines.push(`- Summary: ${work.description}`);
+    lines.push(`- Project count: ${projects.length}`);
+    lines.push(`- Projects listed: ${projects.map((project) => project.metadata.title).join(", ") || "None listed"}`);
     return lines.join("\n");
   }
 
