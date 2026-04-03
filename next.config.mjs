@@ -9,7 +9,13 @@ const withMDX = mdx({
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   transpilePackages: ["next-mdx-remote"],
-  // other configurations...
+  outputFileTracingIncludes: {
+    "/api/routes/stream-response": [
+      "src/app/blog/posts/**/*",
+      "src/app/projects/content/**/*",
+      "public/resume-context.md",
+    ],
+  },
 };
 
 export default withMDX(nextConfig);
