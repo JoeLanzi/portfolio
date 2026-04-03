@@ -6,7 +6,11 @@ const rateLimit = new Map<string, { count: number; timestamp: number }>();
 const blockedIPs = new Set<string>();
 
 export function middleware(request: NextRequest) {
-  const ip = request.headers.get('x-forwarded-for') || request.ip;
+  const forwardedFor = request.headers.get('x-forwarded-for');
+  const ip =
+    forwardedFor?.split(',')[0]?.trim() ||
+    request.headers.get('x-real-ip') ||
+    request.headers.get('x-vercel-forwarded-for');
 
   if (!ip) {
     return new NextResponse('IP address not found', { status: 400 });
