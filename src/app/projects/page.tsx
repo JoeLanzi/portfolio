@@ -1,6 +1,6 @@
 import { getPosts } from "@/app/utils/utils";
 import { Column } from "@/once-ui/components";
-import { Projects } from "@/components/work/Projects";
+import { Projects } from "@/components/projects/Projects";
 import { baseURL } from "@/app/resources";
 import { person, work } from "@/app/resources/content";
 
@@ -16,7 +16,7 @@ export async function generateMetadata() {
       title,
       description,
       type: "website",
-      url: `https://${baseURL}/work/`,
+      url: `https://${baseURL}/projects/`,
       images: [
         {
           url: ogImage,
@@ -33,8 +33,8 @@ export async function generateMetadata() {
   };
 }
 
-export default function Work() {
-  let allProjects = getPosts(["src", "app", "work", "projects"]);
+export default function ProjectsPage() {
+  const allProjects = getPosts(["src", "app", "projects", "content"]);
 
   return (
     <Column maxWidth="m">
@@ -48,7 +48,7 @@ export default function Work() {
             headline: work.title,
             description: work.description,
             url: `https://${baseURL}/projects`,
-            image: `${baseURL}/og?title=Design%20Projects`,
+            image: `${baseURL}/og?title=Projects`,
             author: {
               "@type": "Person",
               name: person.name,

@@ -7,28 +7,28 @@ import { person } from "@/app/resources/content";
 import { formatDate } from "@/app/utils/formatDate";
 import ScrollToHash from "@/components/ScrollToHash";
 
-interface WorkParams {
+interface ProjectParams {
   params: Promise<{
     slug: string;
   }>;
 }
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "work", "projects"]);
+  const posts = getPosts(["src", "app", "projects", "content"]);
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-export async function generateMetadata({ params }: WorkParams) {
+export async function generateMetadata({ params }: ProjectParams) {
   const { slug } = await params;
-  let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slug);
+  const post = getPosts(["src", "app", "projects", "content"]).find((entry) => entry.slug === slug);
 
   if (!post) {
     return;
   }
 
-  let {
+  const {
     title,
     publishedAt: publishedTime,
     summary: description,
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: WorkParams) {
     image,
     team,
   } = post.metadata;
-  let ogImage = image ? `https://${baseURL}${image}` : `https://${baseURL}/og?title=${title}`;
+  const ogImage = image ? `https://${baseURL}${image}` : `https://${baseURL}/og?title=${title}`;
 
   return {
     title,
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: WorkParams) {
       description,
       type: "article",
       publishedTime,
-      url: `https://${baseURL}/work/${post.slug}`,
+      url: `https://${baseURL}/projects/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -64,17 +64,17 @@ export async function generateMetadata({ params }: WorkParams) {
   };
 }
 
-export default async function Project({ params }: WorkParams) {
+export default async function ProjectPage({ params }: ProjectParams) {
   const { slug } = await params;
-  let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slug);
+  const post = getPosts(["src", "app", "projects", "content"]).find((entry) => entry.slug === slug);
 
   if (!post) {
     notFound();
   }
 
   const avatars =
-    post.metadata.team?.map((person) => ({
-      src: person.avatar,
+    post.metadata.team?.map((member) => ({
+      src: member.avatar,
     })) || [];
 
   return (
@@ -93,7 +93,7 @@ export default async function Project({ params }: WorkParams) {
             image: post.metadata.image
               ? `https://${baseURL}${post.metadata.image}`
               : `https://${baseURL}/og?title=${post.metadata.title}`,
-            url: `https://${baseURL}/work/${post.slug}`,
+            url: `https://${baseURL}/projects/${post.slug}`,
             author: {
               "@type": "Person",
               name: person.name,
@@ -102,7 +102,7 @@ export default async function Project({ params }: WorkParams) {
         }}
       />
       <Column maxWidth="xs" gap="16">
-        <Button href="/work" variant="tertiary" weight="default" size="s" prefixIcon="chevronLeft">
+        <Button href="/projects" variant="tertiary" weight="default" size="s" prefixIcon="chevronLeft">
           Projects
         </Button>
         <Heading variant="display-strong-s">{post.metadata.title}</Heading>

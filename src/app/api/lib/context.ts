@@ -154,7 +154,7 @@ function buildProjectsSection(projects: ContentPost[]): string {
       const lines = [
         `- ${project.metadata.title} (${project.metadata.publishedAt})`,
         `  Summary: ${project.metadata.summary}`,
-        `  Link: ${toAbsoluteUrl(`/work/${project.slug}`)}`,
+        `  Link: ${toAbsoluteUrl(`/projects/${project.slug}`)}`,
       ];
 
       if (project.metadata.tag) {
@@ -206,7 +206,7 @@ function buildLinksSection(): string {
   const links = [
     `- Home: ${toAbsoluteUrl("/")}`,
     `- About: ${toAbsoluteUrl("/about")}`,
-    `- Work: ${toAbsoluteUrl("/work")}`,
+    `- Projects: ${toAbsoluteUrl("/projects")}`,
     `- Blog: ${toAbsoluteUrl("/blog")}`,
     `- Resume: ${toAbsoluteUrl("/resume.pdf")}`,
     ...social
@@ -253,8 +253,8 @@ function buildCurrentPageSection(
     return lines.join("\n");
   }
 
-  if (pathname === "/work") {
-    lines.push("- Section: Work index");
+  if (pathname === "/projects") {
+    lines.push("- Section: Projects index");
     lines.push(`- Summary: ${work.description}`);
     return lines.join("\n");
   }
@@ -273,8 +273,8 @@ function buildCurrentPageSection(
     return lines.join("\n");
   }
 
-  if (pathname.startsWith("/work/")) {
-    const slug = pathname.replace("/work/", "");
+  if (pathname.startsWith("/projects/")) {
+    const slug = pathname.replace("/projects/", "");
     const project = projects.find((entry) => entry.slug === slug);
 
     if (project) {
@@ -368,7 +368,7 @@ async function getRemoteContext(): Promise<string> {
 
 export async function buildPortfolioContext(pageContext?: PageContext): Promise<string> {
   const blogPosts = sortPosts(getPostsSafe(["src", "app", "blog", "posts"]));
-  const projects = sortPosts(getPostsSafe(["src", "app", "work", "projects"]));
+  const projects = sortPosts(getPostsSafe(["src", "app", "projects", "content"]));
   const remoteContext = await getRemoteContext();
 
   const sections = [
