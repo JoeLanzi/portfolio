@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { ImageResponse } from "next/og";
-import { baseURL } from "@/app/resources";
-import { person } from "@/app/resources/content";
+import { baseURL } from "@/app/resources/config";
+import { person } from "@/app/resources/person";
 
 export const runtime = "edge";
 
