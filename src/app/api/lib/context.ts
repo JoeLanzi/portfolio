@@ -217,6 +217,22 @@ function buildLinksSection(): string {
   return `## Links\n${links}`;
 }
 
+function buildSiteSection(projects: ContentPost[], posts: ContentPost[]): string {
+  const projectTitles = projects.map((project) => project.metadata.title).join(", ");
+  const postTitles = posts.map((post) => post.metadata.title).join(", ");
+
+  return `## Site Structure
+- The site has these primary pages: Home, About, Projects, Blog, and Resume.
+- Projects page URL: ${toAbsoluteUrl("/projects")}
+- Projects page summary: ${work.description}
+- Projects currently listed: ${projectTitles || "None listed"}
+- Blog page URL: ${toAbsoluteUrl("/blog")}
+- Blog page summary: ${blog.description}
+- Blog posts currently listed: ${postTitles || "None listed"}
+- About page URL: ${toAbsoluteUrl("/about")}
+- Resume URL: ${toAbsoluteUrl("/resume.pdf")}`;
+}
+
 function buildCurrentPageSection(
   pageContext: PageContext | undefined,
   projects: ContentPost[],
@@ -381,6 +397,7 @@ export async function buildPortfolioContext(pageContext?: PageContext): Promise<
 - Home summary: ${toPlainText(home.subline)}
 - About summary: ${toPlainText(about.intro.description)}`,
     buildCurrentPageSection(pageContext, projects, blogPosts),
+    buildSiteSection(projects, blogPosts),
     buildExperienceSection(),
     buildEducationSection(),
     buildProjectsSection(projects),

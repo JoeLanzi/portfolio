@@ -7,6 +7,7 @@ import { sendChatMessage, INITIAL_MESSAGE } from "@/app/api";
 import type { ChatMessageItem } from "@/app/api";
 import { useConversationStore } from "@/app/api/stores/useConversationStore";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 function getChatErrorMessage(errorData: unknown): string {
   const fallback = "The chat ran into an error. Please try again in a moment.";
@@ -204,6 +205,35 @@ export const PopChat: React.FC = () => {
     }
   };
 
+  const renderMessageText = (message: ChatMessageItem) => {
+    const text =
+      message.content &&
+      Array.isArray(message.content) &&
+      message.content[0] &&
+      typeof message.content[0].text === "string"
+        ? message.content[0].text
+        : "";
+
+    return (
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          a: ({ href, children }) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {children}
+            </a>
+          ),
+        }}
+      >
+        {text}
+      </ReactMarkdown>
+    );
+  };
+
   return (
     <>
       {/* Chat button */}
@@ -249,10 +279,7 @@ export const PopChat: React.FC = () => {
             {chatMessages.map((msg, index) => (
               <Flex key={index} style={{ justifyContent: msg.role === "user" ? "flex-end" : "flex-start" }} fillWidth>
                 <div className={msg.role === "user" ? styles.userMessage : styles.replyMessage}>
-                  <ReactMarkdown>
-                    {msg.content && Array.isArray(msg.content) && msg.content[0] && 
-                    typeof msg.content[0].text === 'string' ? msg.content[0].text : ''}
-                  </ReactMarkdown>
+                  {renderMessageText(msg)}
                 </div>
               </Flex>
             ))}

@@ -108,7 +108,13 @@
   padding: 8px 12px;
   border-radius: 12px;
   margin-bottom: 8px;
-  max-width: 90%;
+  max-width: min(90%, 34rem);
+  line-height: 1.55;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
 }
 
 .replyMessage {
@@ -118,9 +124,54 @@
   padding: 8px 12px;
   border-radius: 12px;
   margin-bottom: 8px;
-  max-width: 95%;
-  // word-wrap: break-word;
-  // word-break: break-all;
+  max-width: min(95%, 42rem);
+  line-height: 1.65;
+
+  a {
+    color: #8ec8ff;
+    text-decoration: underline;
+    word-break: break-word;
+  }
+
+  p,
+  ul,
+  ol,
+  h1,
+  h2,
+  h3 {
+    margin: 0 0 0.75rem;
+  }
+
+  p:last-child,
+  ul:last-child,
+  ol:last-child,
+  h1:last-child,
+  h2:last-child,
+  h3:last-child {
+    margin-bottom: 0;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.2rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.35;
+  }
+
+  li + li {
+    margin-top: 0.25rem;
+  }
+
+  code {
+    font-size: 0.95em;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.35rem;
+  }
 }
 
 .searchingIndicator {
