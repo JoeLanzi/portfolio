@@ -233,6 +233,29 @@ function buildSiteSection(projects: ContentPost[], posts: ContentPost[]): string
 - Resume URL: ${toAbsoluteUrl("/resume.pdf")}`;
 }
 
+function buildLiveSiteSnapshot(projects: ContentPost[], posts: ContentPost[], pageContext?: PageContext): string {
+  const projectList = projects.length
+    ? projects.map((project) => `- ${project.metadata.title}: ${toAbsoluteUrl(`/projects/${project.slug}`)}`).join("\n")
+    : "- None";
+  const postList = posts.length
+    ? posts.map((post) => `- ${post.metadata.title}: ${toAbsoluteUrl(`/blog/${post.slug}`)}`).join("\n")
+    : "- None";
+
+  const lines = [
+    "## Live Site Snapshot",
+    `- Projects page: ${toAbsoluteUrl("/projects")}`,
+    `- Blog page: ${toAbsoluteUrl("/blog")}`,
+    `- Resume: ${toAbsoluteUrl("/resume.pdf")}`,
+    `- Current path: ${pageContext?.pathname || "unknown"}`,
+    "### Current Projects",
+    projectList,
+    "### Current Blog Posts",
+    postList,
+  ];
+
+  return lines.join("\n");
+}
+
 function buildCurrentPageSection(
   pageContext: PageContext | undefined,
   projects: ContentPost[],
@@ -407,6 +430,13 @@ export async function buildPortfolioContext(pageContext?: PageContext): Promise<
   ].filter(Boolean);
 
   return sections.join("\n\n");
+}
+
+export function buildLiveSiteContext(pageContext?: PageContext): string {
+  const blogPosts = sortPosts(getPostsSafe(["src", "app", "blog", "posts"]));
+  const projects = sortPosts(getPostsSafe(["src", "app", "projects", "content"]));
+
+  return buildLiveSiteSnapshot(projects, blogPosts, pageContext);
 }
 
 export function buildPageContextNote(pageContext?: PageContext): string {

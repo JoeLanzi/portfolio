@@ -10,7 +10,7 @@ import {
   MAX_OUTPUT_TOKENS,
   PROMPT_CACHE_KEY,
 } from "@/app/api/config";
-import { buildPageContextNote, buildPortfolioContext } from "@/app/api/lib/context";
+import { buildLiveSiteContext, buildPageContextNote, buildPortfolioContext } from "@/app/api/lib/context";
 import { getOpenAIClient } from "@/app/api/lib/openai";
 import { isAllowedOrigin, parseChatRequest } from "@/app/api/lib/request";
 
@@ -37,6 +37,7 @@ export async function POST(request: Request) {
     const portfolioContext = previousResponseId
       ? ""
       : await buildPortfolioContext(pageContext);
+    const liveSiteContext = buildLiveSiteContext(pageContext);
     const pageContextNote = buildPageContextNote(pageContext);
 
     const input: EasyInputMessage[] = [];
@@ -44,6 +45,8 @@ export async function POST(request: Request) {
     if (portfolioContext) {
       input.push({ role: "developer", content: portfolioContext });
     }
+
+    input.push({ role: "developer", content: liveSiteContext });
 
     if (pageContextNote) {
       input.push({ role: "developer", content: pageContextNote });

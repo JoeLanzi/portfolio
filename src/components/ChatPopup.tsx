@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import styles from "./ChatPopup.module.scss";
 import { IconButton, Flex, Input, Heading, Text } from "@/once-ui/components";
 import { sendChatMessage, INITIAL_MESSAGE } from "@/app/api";
@@ -8,6 +9,13 @@ import type { ChatMessageItem } from "@/app/api";
 import { useConversationStore } from "@/app/api/stores/useConversationStore";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+
+const INTERNAL_CHAT_HOSTS = new Set([
+  "joelanzi.com",
+  "www.joelanzi.com",
+  "localhost:3000",
+  "localhost:3001",
+]);
 
 function getChatErrorMessage(errorData: unknown): string {
   const fallback = "The chat ran into an error. Please try again in a moment.";
@@ -28,6 +36,31 @@ function getChatErrorMessage(errorData: unknown): string {
   }
 
   return message || fallback;
+}
+
+function getInternalHref(href?: string): string | null {
+  if (!href) {
+    return null;
+  }
+
+  if (href.startsWith("/")) {
+    return href;
+  }
+
+  if (href.startsWith("#")) {
+    return href;
+  }
+
+  try {
+    const url = new URL(href);
+    if (INTERNAL_CHAT_HOSTS.has(url.host)) {
+      return `${url.pathname}${url.search}${url.hash}`;
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
 }
 
 export const PopChat: React.FC = () => {
@@ -219,13 +252,27 @@ export const PopChat: React.FC = () => {
         remarkPlugins={[remarkGfm]}
         components={{
           a: ({ href, children }) => (
-            <a
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {children}
-            </a>
+            (() => {
+              const internalHref = getInternalHref(href);
+
+              if (internalHref) {
+                if (internalHref.startsWith("#")) {
+                  return <a href={internalHref}>{children}</a>;
+                }
+
+                return <Link href={internalHref}>{children}</Link>;
+              }
+
+              return (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {children}
+                </a>
+              );
+            })()
           ),
         }}
       >
