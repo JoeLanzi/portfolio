@@ -1,8 +1,21 @@
 import { NextResponse } from "next/server";
-import dotenv from "dotenv";
-import { getOpenAIClient, type ChatRequestBody, MODEL } from "@/app/api/lib/core";
+import type {
+  EasyInputMessage,
+  ResponseCreateParamsStreaming,
+  ResponseStreamEvent,
+} from "openai/resources/responses/responses";
+import {
+  CHAT_INSTRUCTIONS,
+  MAX_OUTPUT_TOKENS,
+  MODEL,
+  PROMPT_CACHE_KEY,
+  REASONING_EFFORT,
+} from "@/app/api/server-config";
+import { buildPageContextNote, buildPortfolioContext } from "@/app/api/lib/context";
+import { getOpenAIClient } from "@/app/api/lib/openai";
+import { isAllowedOrigin, parseChatRequest } from "@/app/api/lib/request";
 
-dotenv.config();
+export const runtime = "nodejs";
 
 /**
  * POST /api/routes/stream-response
@@ -10,79 +23,87 @@ dotenv.config();
  */
 export async function POST(request: Request) {
   try {
-    const apiKey = request.headers.get('X-API-Key');
-
-    // Validate API key
-    if (!process.env.API_KEY) {
-      console.error("API_KEY environment variable not set");
+    if (!isAllowedOrigin(request)) {
       return NextResponse.json(
-        { error: "Server misconfiguration" },
-        { status: 500 }
+        { error: "Forbidden origin" },
+        { status: 403 },
       );
     }
 
-    if (apiKey !== process.env.API_KEY) {
-      return NextResponse.json(
-        { error: "Unauthorized request" },
-        { status: 401 }
-      );
-    }
-
-    const { messages } = await request.json();
-
-    console.log("Received messages:", JSON.stringify(messages, null, 2));
+    const { message, previousResponseId, pageContext } = await parseChatRequest(request);
 
     const openai = getOpenAIClient();
+    const portfolioContext = previousResponseId
+      ? ""
+      : await buildPortfolioContext(pageContext);
+    const pageContextNote = buildPageContextNote(pageContext);
 
-    // Build request for OpenAI Responses API
-    const createArgs: any = {
+    const input: EasyInputMessage[] = [];
+
+    if (portfolioContext) {
+      input.push({ role: "developer", content: portfolioContext });
+    }
+
+    if (pageContextNote) {
+      input.push({ role: "developer", content: pageContextNote });
+    }
+
+    input.push({ role: "user", content: message });
+
+    const createArgs: ResponseCreateParamsStreaming = {
       model: MODEL,
-      input: messages,
-      tools: [
-        {
-          type: "file_search",
-          vector_store_ids: [process.env.VECTOR_STORE_ID!],
-        },
-      ],
-      tool_choice: "auto",
-      store: false,
+      instructions: CHAT_INSTRUCTIONS,
+      previous_response_id: previousResponseId,
+      reasoning: {
+        effort: REASONING_EFFORT,
+      },
+      input,
       stream: true,
+      store: true,
+      max_output_tokens: MAX_OUTPUT_TOKENS,
+      prompt_cache_key: PROMPT_CACHE_KEY,
       parallel_tool_calls: false,
+      metadata: {
+        surface: "portfolio-chat",
+        page: pageContext?.pathname || "unknown",
+        continuation: previousResponseId ? "previous_response_id" : "fresh",
+      },
     };
 
     const events = await openai.responses.create(createArgs);
+    const encoder = new TextEncoder();
 
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          for await (const event of events as unknown as AsyncIterable<any>) {
+          for await (const event of events as AsyncIterable<ResponseStreamEvent>) {
             const data = JSON.stringify({
               event: event.type,
               data: event,
             });
-            controller.enqueue(
-              new TextEncoder().encode(`data: ${data}\n\n`)
-            );
+            controller.enqueue(encoder.encode(`data: ${data}\n\n`));
           }
 
           controller.enqueue(
-            new TextEncoder().encode(
-              `data: ${JSON.stringify({ event: "done" })}\n\n`
-            )
+            encoder.encode(`data: ${JSON.stringify({ event: "done" })}\n\n`),
           );
           controller.close();
         } catch (error) {
           console.error("Error in streaming loop:", error);
+          const apiError = error as {
+            code?: string;
+            type?: string;
+          };
 
           const errorMsg = JSON.stringify({
             event: "error",
             data: {
               message: error instanceof Error ? error.message : "Unknown streaming error",
+              code: apiError.code,
+              type: apiError.type,
             },
           });
-          controller.enqueue(
-            new TextEncoder().encode(`data: ${errorMsg}\n\n`)
-          );
+          controller.enqueue(encoder.encode(`data: ${errorMsg}\n\n`));
           controller.close();
         }
       },
@@ -102,7 +123,7 @@ export async function POST(request: Request) {
       {
         error: error instanceof Error ? error.message : "Unknown error",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

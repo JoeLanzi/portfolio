@@ -4,8 +4,30 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatPopup.module.scss";
 import { IconButton, Flex, Input, Heading, Text } from "@/once-ui/components";
 import { useChat, INITIAL_MESSAGE } from "@/app/api";
+import type { ChatMessageItem } from "@/app/api";
 import { useConversationStore } from "@/app/api/stores/useConversationStore";
 import ReactMarkdown from "react-markdown";
+
+function getChatErrorMessage(errorData: unknown): string {
+  const fallback = "The chat ran into an error. Please try again in a moment.";
+
+  if (!errorData || typeof errorData !== "object") {
+    return fallback;
+  }
+
+  const message = typeof (errorData as { message?: unknown }).message === "string"
+    ? (errorData as { message: string }).message
+    : "";
+  const code = typeof (errorData as { code?: unknown }).code === "string"
+    ? (errorData as { code: string }).code
+    : "";
+
+  if (code === "insufficient_quota" || /quota|billing/i.test(message)) {
+    return "The chat is temporarily unavailable because the OpenAI API quota has been exceeded. Please check billing or try again later.";
+  }
+
+  return message || fallback;
+}
 
 export const PopChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,13 +45,13 @@ export const PopChat: React.FC = () => {
   }, [chatMessages]);
 
   useEffect(() => {
-    setChatMessages([
-      {
-        type: "message",
-        role: "assistant",
-        content: [{ type: "output_text", text: INITIAL_MESSAGE }]
-      }
-    ]);
+    const initialAssistantMessage: ChatMessageItem = {
+      type: "message",
+      role: "assistant",
+      content: [{ type: "output_text", text: INITIAL_MESSAGE }],
+    };
+
+    setChatMessages([initialAssistantMessage]);
   }, [setChatMessages]);
 
   const handleClick = () => {
@@ -54,10 +76,10 @@ export const PopChat: React.FC = () => {
       const currentMessages = [...chatMessages];
       
       // Create user message
-      const userMessage = {
+      const userMessage: ChatMessageItem = {
         type: "message",
         role: "user",
-        content: [{ type: "input_text", text: message }]
+        content: [{ type: "input_text", text: message }],
       };
       
       // Add user message to our local copy
@@ -72,15 +94,16 @@ export const PopChat: React.FC = () => {
         // Send message to API
         await useChat(message, (data) => {
           const { event, data: eventData } = data;
-          
-          // Check for search-related events
-          if (event === "tool_calls.web_search_call") {
-            setIsSearching(true);
-          }
-          
-          // Check for events that indicate search completion
-          if (event === "tool_calls.web_search_call.done" || 
-              event === "response.output_text.delta") {
+
+          // Stop the loading state once text starts streaming or the response finishes.
+          if (
+            event === "error" ||
+            event === "response.failed" ||
+            event === "response.incomplete" ||
+            event === "response.output_text.delta" ||
+            event === "response.completed" ||
+            event === "done"
+          ) {
             setIsSearching(false);
           }
   
@@ -102,7 +125,7 @@ export const PopChat: React.FC = () => {
                 type: "message",
                 role: "assistant",
                 id: item_id,
-                content: [{ type: "output_text", text: partial }]
+                content: [{ type: "output_text", text: partial }],
               });
             } else {
               // Update existing message
@@ -124,10 +147,28 @@ export const PopChat: React.FC = () => {
                 type: "message",
                 role: "assistant",
                 id: item.id,
-                content: [{ type: "output_text", text: item.content.text }]
+                content: [{ type: "output_text", text: item.content.text }],
               });
               setChatMessages([...latestMessages]);
             }
+          } else if (event === "error" || event === "response.failed" || event === "response.incomplete") {
+            const errorText = getChatErrorMessage(eventData);
+            const lastMessage = latestMessages[latestMessages.length - 1];
+
+            if (
+              lastMessage?.type === "message" &&
+              lastMessage.role === "assistant" &&
+              lastMessage.content?.[0]?.text === errorText
+            ) {
+              return;
+            }
+
+            latestMessages.push({
+              type: "message",
+              role: "assistant",
+              content: [{ type: "output_text", text: errorText }],
+            });
+            setChatMessages([...latestMessages]);
           } else if (event === "response.output_item.done") {
             const { item } = eventData;
             const index = latestMessages.findIndex(msg => msg.id === item.id);
@@ -135,7 +176,7 @@ export const PopChat: React.FC = () => {
               latestMessages[index].done = true;
               setChatMessages([...latestMessages]);
             }
-            setIsSearching(false); // Ensure searching is set to false when done
+            setIsSearching(false);
           }
           
           // Scroll to bottom
@@ -144,16 +185,19 @@ export const PopChat: React.FC = () => {
               chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
             }
           }, 100);
+        }, {
+          pathname: window.location.pathname,
+          title: document.title,
         });
       } catch (error) {
         console.error("Error sending message:", error);
         setChatMessages([
           ...updatedMessages,
-          { 
-            type: "message", 
-            role: "assistant", 
-            content: [{ type: "output_text", text: "An error occurred." }] 
-          }
+          {
+            type: "message",
+            role: "assistant",
+            content: [{ type: "output_text", text: "An error occurred." }],
+          },
         ]);
         setIsSearching(false);
       }

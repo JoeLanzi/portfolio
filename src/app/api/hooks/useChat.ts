@@ -1,22 +1,6 @@
+import { API_ENDPOINT } from "@/app/api/config";
 import { useConversationStore } from "@/app/api/stores/useConversationStore";
-import { API_ENDPOINT, DEVELOPER_PROMPT } from "@/app/api/lib/core";
-
-/**
- * Fetches API token from the server
- */
-async function getApiToken(): Promise<string> {
-  try {
-    const response = await fetch('/api/routes/get-token');
-    if (!response.ok) {
-      throw new Error('Failed to get API token');
-    }
-    const data = await response.json();
-    return data.token;
-  } catch (error) {
-    console.error('Error getting API token:', error);
-    throw error;
-  }
-}
+import type { PageContext } from "@/app/api/types";
 
 /**
  * Sends a chat message and streams the response
@@ -25,39 +9,25 @@ async function getApiToken(): Promise<string> {
  */
 export async function useChat(
   userMessage: string,
-  onMessage: (data: any) => void
+  onMessage: (data: any) => void,
+  pageContext?: PageContext,
 ): Promise<void> {
   const {
-    conversationItems,
-    addConversationItem,
+    lastResponseId,
+    setLastResponseId,
   } = useConversationStore.getState();
 
-  // Add user message to conversation
-  const userMessageItem = {
-    role: "user",
-    content: [{ type: "input_text", text: userMessage }],
-  };
-  addConversationItem(userMessageItem);
-
-  // Build messages array with system prompt
-  const messages = [
-    { role: "system", content: DEVELOPER_PROMPT },
-    ...conversationItems,
-    userMessageItem,
-  ];
-
   const requestBody = {
-    messages,
+    message: userMessage,
+    previousResponseId: lastResponseId,
+    pageContext,
   };
 
   try {
-    const token = await getApiToken();
-
     const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": token,
       },
       body: JSON.stringify(requestBody),
     });
@@ -71,7 +41,7 @@ export async function useChat(
     const decoder = new TextDecoder();
     let done = false;
     let buffer = "";
-    let assistantMessage = "";
+    let latestResponseId = lastResponseId;
 
     while (!done) {
       const { value, done: doneReading } = await reader.read();
@@ -93,11 +63,11 @@ export async function useChat(
           const data = JSON.parse(dataStr);
 
           // Collect assistant text from delta events
-          if (data.event === "response.output_text.delta") {
-            const { delta } = data.data;
-            if (typeof delta === "string") {
-              assistantMessage += delta;
-            }
+          if (
+            (data.event === "response.created" || data.event === "response.completed") &&
+            typeof data.data?.response?.id === "string"
+          ) {
+            latestResponseId = data.data.response.id;
           }
 
           onMessage(data);
@@ -105,13 +75,8 @@ export async function useChat(
       }
     }
 
-    // Add assistant message to conversation
-    if (assistantMessage) {
-      const assistantMessageItem = {
-        role: "assistant",
-        content: [{ type: "output_text", text: assistantMessage }],
-      };
-      addConversationItem(assistantMessageItem);
+    if (latestResponseId) {
+      setLastResponseId(latestResponseId);
     }
 
     // Handle remaining buffer data
