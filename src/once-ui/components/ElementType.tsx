@@ -10,17 +10,20 @@ interface ElementTypeProps {
 }
 
 const isExternalLink = (url: string) => /^https?:\/\//.test(url);
+const isStaticAssetLink = (url: string) =>
+  /^\/[^?#]+\.[a-z0-9]+(?:[?#].*)?$/i.test(url);
 
 const ElementType = forwardRef<HTMLElement, ElementTypeProps>(
   ({ href, children, className, style, ...props }, ref) => {
     if (href) {
-      const isExternal = isExternalLink(href);
-      if (isExternal) {
+      const isAnchorTag = isExternalLink(href) || isStaticAssetLink(href);
+
+      if (isAnchorTag) {
         return (
           <a
             href={href}
-            target="_blank"
-            rel="noreferrer"
+            target={isExternalLink(href) ? "_blank" : props.target}
+            rel={isExternalLink(href) ? "noreferrer" : props.rel}
             ref={ref as React.Ref<HTMLAnchorElement>}
             className={className}
             style={style}

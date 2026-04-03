@@ -14,9 +14,7 @@ import {
 } from "@/app/resources";
 import { PORTFOLIO_CONTEXT_URL, REMOTE_CONTEXT_CACHE_TTL_MS } from "@/app/api/server-config";
 import type { PageContext } from "@/app/api/types";
-import { getPosts } from "@/app/utils/utils";
-
-type ContentPost = ReturnType<typeof getPosts>[number];
+import { getPostsSafe, type Post as ContentPost } from "@/app/utils/utils";
 
 const MAX_PROJECT_EXCERPT_LENGTH = 600;
 const MAX_BLOG_EXCERPT_LENGTH = 500;
@@ -367,8 +365,8 @@ async function getRemoteContext(): Promise<string> {
 }
 
 export async function buildPortfolioContext(pageContext?: PageContext): Promise<string> {
-  const blogPosts = sortPosts(getPosts(["src", "app", "blog", "posts"]));
-  const projects = sortPosts(getPosts(["src", "app", "work", "projects"]));
+  const blogPosts = sortPosts(getPostsSafe(["src", "app", "blog", "posts"]));
+  const projects = sortPosts(getPostsSafe(["src", "app", "work", "projects"]));
   const remoteContext = await getRemoteContext();
 
   const sections = [
