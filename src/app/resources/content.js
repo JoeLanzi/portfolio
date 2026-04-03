@@ -15,7 +15,7 @@ const person = {
 
 const newsletter = {
   display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
+  title: <>{`Subscribe to ${person.firstName}'s Newsletter`}</>,
   description: (
     <>
       I occasionally write about design, technology, and share thoughts on the intersection of
@@ -61,8 +61,8 @@ const home = {
   headline: <>AI Engineer · Data Scientist · Investor</>,
   subline: (
     <>
-      "Hey I'm <InlineCode>Joe</InlineCode>, an AI innovator dedicated to transforming complex challenges into 
-      breakthrough solutions, designing intelligent systems that create tangible impact across industries"
+      {'"Hey I\'m '}<InlineCode>Joe</InlineCode>
+      {', an AI innovator dedicated to transforming complex challenges into breakthrough solutions, designing intelligent systems that create tangible impact across industries"'}
     </>
   ),
 };
@@ -87,9 +87,7 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        I'm a developer with 5+ years leading AI & ML projects in industry and research, specializing in generative AI 
-        for full stack applications, cybersecurity, healthcare, finance, transportation, and geospatial applications. Skilled in end-to-end 
-        system design for scalable solutions on cloud and edge platforms.
+        {"I'm a developer with 5+ years leading AI & ML projects in industry and research, specializing in generative AI for full stack applications, cybersecurity, healthcare, finance, transportation, and geospatial applications. Skilled in end-to-end system design for scalable solutions on cloud and edge platforms."}
       </>
     ),
   },

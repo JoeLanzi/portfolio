@@ -6,16 +6,17 @@ import type {
 } from "openai/resources/responses/responses";
 import {
   CHAT_INSTRUCTIONS,
+  getServerConfig,
   MAX_OUTPUT_TOKENS,
-  MODEL,
   PROMPT_CACHE_KEY,
-  REASONING_EFFORT,
-} from "@/app/api/server-config";
+} from "@/app/api/config";
 import { buildPageContextNote, buildPortfolioContext } from "@/app/api/lib/context";
 import { getOpenAIClient } from "@/app/api/lib/openai";
 import { isAllowedOrigin, parseChatRequest } from "@/app/api/lib/request";
 
 export const runtime = "nodejs";
+
+const { MODEL, REASONING_EFFORT } = getServerConfig();
 
 /**
  * POST /api/routes/stream-response

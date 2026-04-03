@@ -7,7 +7,7 @@ import type { PageContext } from "@/app/api/types";
  * @param userMessage - The user's message
  * @param onMessage - Callback to handle streaming events
  */
-export async function useChat(
+export async function sendChatMessage(
   userMessage: string,
   onMessage: (data: any) => void,
   pageContext?: PageContext,

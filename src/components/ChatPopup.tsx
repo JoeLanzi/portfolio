@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatPopup.module.scss";
 import { IconButton, Flex, Input, Heading, Text } from "@/once-ui/components";
-import { useChat, INITIAL_MESSAGE } from "@/app/api";
+import { sendChatMessage, INITIAL_MESSAGE } from "@/app/api";
 import type { ChatMessageItem } from "@/app/api";
 import { useConversationStore } from "@/app/api/stores/useConversationStore";
 import ReactMarkdown from "react-markdown";
@@ -92,7 +92,7 @@ export const PopChat: React.FC = () => {
   
       try {
         // Send message to API
-        await useChat(message, (data) => {
+        await sendChatMessage(message, (data) => {
           const { event, data: eventData } = data;
 
           // Stop the loading state once text starts streaming or the response finishes.

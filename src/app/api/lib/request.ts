@@ -1,6 +1,6 @@
 import "server-only";
 
-import { ALLOWED_ORIGINS } from "@/app/api/server-config";
+import { ALLOWED_ORIGINS } from "@/app/api/config";
 import type { ChatRequestBody, PageContext } from "@/app/api/types";
 
 const MAX_MESSAGE_LENGTH = 4_000;

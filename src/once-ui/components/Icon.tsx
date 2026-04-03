@@ -34,6 +34,21 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
     ref,
   ) => {
     const IconComponent: IconType | undefined = iconLibrary[name];
+    const [isTooltipVisible, setTooltipVisible] = useState(false);
+    const [isHover, setIsHover] = useState(false);
+
+    useEffect(() => {
+      let timer: NodeJS.Timeout;
+      if (isHover) {
+        timer = setTimeout(() => {
+          setTooltipVisible(true);
+        }, 400);
+      } else {
+        setTooltipVisible(false);
+      }
+
+      return () => clearTimeout(timer);
+    }, [isHover]);
 
     if (!IconComponent) {
       console.warn(`Icon "${name}" does not exist in the library.`);
@@ -55,22 +70,6 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
       const [scheme, weight] = onSolid.split("-") as [ColorScheme, ColorWeight];
       colorClass = `${scheme}-on-solid-${weight}`;
     }
-
-    const [isTooltipVisible, setTooltipVisible] = useState(false);
-    const [isHover, setIsHover] = useState(false);
-
-    useEffect(() => {
-      let timer: NodeJS.Timeout;
-      if (isHover) {
-        timer = setTimeout(() => {
-          setTooltipVisible(true);
-        }, 400);
-      } else {
-        setTooltipVisible(false);
-      }
-
-      return () => clearTimeout(timer);
-    }, [isHover]);
 
     return (
       <Flex

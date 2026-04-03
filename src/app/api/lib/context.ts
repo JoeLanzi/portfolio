@@ -12,7 +12,7 @@ import {
   social,
   work,
 } from "@/app/resources";
-import { PORTFOLIO_CONTEXT_URL, REMOTE_CONTEXT_CACHE_TTL_MS } from "@/app/api/server-config";
+import { REMOTE_CONTEXT_CACHE_TTL_MS, getServerConfig } from "@/app/api/config";
 import type { PageContext } from "@/app/api/types";
 import { getPostsSafe, type Post as ContentPost } from "@/app/utils/utils";
 
@@ -37,6 +37,8 @@ let remoteContextCache:
       value: string;
     }
   | null = null;
+
+const { PORTFOLIO_CONTEXT_URL } = getServerConfig();
 
 function toAbsoluteUrl(path: string): string {
   if (!path) {

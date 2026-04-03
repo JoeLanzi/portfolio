@@ -4,6 +4,7 @@ import React, {
   useState,
   useRef,
   useEffect,
+  useCallback,
   ReactNode,
   forwardRef,
   useImperativeHandle,
@@ -63,12 +64,15 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
     const isControlled = controlledIsOpen !== undefined;
     const isOpen = isControlled ? controlledIsOpen : internalIsOpen;
 
-    const handleOpenChange = (newIsOpen: boolean) => {
-      if (!isControlled) {
-        setInternalIsOpen(newIsOpen);
-      }
-      onOpenChange?.(newIsOpen);
-    };
+    const handleOpenChange = useCallback(
+      (newIsOpen: boolean) => {
+        if (!isControlled) {
+          setInternalIsOpen(newIsOpen);
+        }
+        onOpenChange?.(newIsOpen);
+      },
+      [isControlled, onOpenChange],
+    );
 
     const { x, y, strategy, refs, update } = useFloating({
       placement: floatingPlacement,
@@ -101,9 +105,7 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
     }, [refs]);
 
     useEffect(() => {
-      if (!mounted) {
-        setMounted(true);
-      }
+      setMounted(true);
     }, []);
 
     useEffect(() => {
@@ -117,26 +119,35 @@ const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
       }
     }, [isOpen, mounted, refs, update]);
 
-    const handleClickOutside = (event: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
-        handleOpenChange(false);
-      }
-    };
+    const handleClickOutside = useCallback(
+      (event: MouseEvent) => {
+        if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+          handleOpenChange(false);
+        }
+      },
+      [handleOpenChange],
+    );
 
-    const handleFocusOut = (event: FocusEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.relatedTarget as Node)) {
-        handleOpenChange(false);
-      }
-    };
+    const handleFocusOut = useCallback(
+      (event: FocusEvent) => {
+        if (wrapperRef.current && !wrapperRef.current.contains(event.relatedTarget as Node)) {
+          handleOpenChange(false);
+        }
+      },
+      [handleOpenChange],
+    );
 
     useEffect(() => {
+      const wrapperElement = wrapperRef.current;
+
       document.addEventListener("mousedown", handleClickOutside);
-      wrapperRef.current?.addEventListener("focusout", handleFocusOut);
+      wrapperElement?.addEventListener("focusout", handleFocusOut);
+
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
-        wrapperRef.current?.removeEventListener("focusout", handleFocusOut);
+        wrapperElement?.removeEventListener("focusout", handleFocusOut);
       };
-    }, []);
+    }, [handleClickOutside, handleFocusOut]);
 
     return (
       <Flex
