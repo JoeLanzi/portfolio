@@ -21,7 +21,7 @@
     "elint": "^1.0.0",
     "gray-matter": "^4.0.3",
     "jsonwebtoken": "^9.0.2",
-    "next": "^15.5.14",
+    "next": "^15.5.15",
     "next-mdx-remote": "^6.0.0",
     "openai": "^6.10.0",
     "postcss": "^8.4.39",
